@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Data
@@ -20,5 +19,5 @@ public class Gpt3Request {
     private float top_p;
     private float frequency_penalty;
     private float presence_penalty;
-    private List stop;
+    private List<String> stop;
 }

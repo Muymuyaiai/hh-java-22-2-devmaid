@@ -36,7 +36,7 @@ public class Gpt3Service {
         Gpt3Return newGpt3Return = Objects.requireNonNull(clientCompletions.post()
                         .uri("/completions")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .headers(h -> h.setBearerAuth("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"))
+                        .headers(h -> h.setBearerAuth(System.getenv("OPENAI_API_KEY")))
                         .body(BodyInserters.fromValue(newGpt3Request))
                         .retrieve()
                         .toEntity(Gpt3Return.class)
