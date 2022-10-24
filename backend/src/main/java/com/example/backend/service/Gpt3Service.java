@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +36,7 @@ public class Gpt3Service {
         Gpt3Return newGpt3Return = Objects.requireNonNull(clientCompletions.post()
                         .uri("/completions")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .headers(h -> h.setBearerAuth("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"))
+                        .headers(h -> h.setBearerAuth("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"))
                         .body(BodyInserters.fromValue(newGpt3Request))
                         .retrieve()
                         .toEntity(Gpt3Return.class)
