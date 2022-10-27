@@ -16,7 +16,7 @@ export default function Translation(props: TranslationProps) {
 
     const [translationReq, setTranslationReq] = useState(emptyTranslationReq)
 
-    const handleChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
+    const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
         setTranslationReq(translationReq => ({
             ...translationReq,
             [event.target.name]:
@@ -24,7 +24,7 @@ export default function Translation(props: TranslationProps) {
         }))
     }
 
-    const handleChangeText = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    const handleChangeText = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setTranslationReq(translationReq => ({
             ...translationReq,
             [event.target.name]:
