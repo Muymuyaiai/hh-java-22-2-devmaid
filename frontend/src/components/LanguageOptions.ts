@@ -1,4 +1,6 @@
-export const languageOptions = [
+import LanguageOption from "../model/LanguageOption";
+
+export const languageOptions: Array<LanguageOption> = [
     {
         id: 74,
         name: "TypeScript (3.7.4)",

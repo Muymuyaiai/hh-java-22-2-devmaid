@@ -1,9 +1,15 @@
 import './CodeEditor.css';
-import React, {useState} from "react";
+import React, {FormEvent, useState} from "react";
 import MonacoEditor from "react-monaco-editor";
 import * as monaco from 'monaco-editor';
 import {languageOptions} from "./LanguageOptions";
 import Select from "react-select";
+import CompileReq from "../model/CompileReq";
+
+type CodeEditorProps = {
+    compileRes: String
+    getCodeCompile: (request: CompileReq) => void
+}
 
 const MONACO_OPTIONS: monaco.editor.IDiffEditorConstructionOptions = {
     autoIndent: "full",
@@ -24,7 +30,7 @@ const MONACO_OPTIONS: monaco.editor.IDiffEditorConstructionOptions = {
     },
 };
 
-export default function CodeEditor() {
+export default function CodeEditor(props: CodeEditorProps) {
     const [code, setCode] = useState("text")
     const [language, setLanguage] = useState(languageOptions[0])
 
@@ -39,8 +45,13 @@ export default function CodeEditor() {
         setLanguage(selectedOption);
     };
 
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        props.getCodeCompile({language_id: language.id, source_code: btoa(code), stdin: btoa("")})
+    }
+
     return (
-        <div>
+        <form onSubmit={handleSubmit}>
             <Select className={"select-lang"} options={languageOptions} onChange={handleSelectChange}/>
             <div className={"Editor"}>
                 <MonacoEditor
@@ -53,6 +64,10 @@ export default function CodeEditor() {
                     onChange={handleChange}
                 />
             </div>
-        </div>
+            <button type={"submit"}>Compile</button>
+            <label className={"compiler"}>
+           <textarea readOnly value={atob(props.compileRes.toString())}/>
+            </label>
+        </form>
     );
 }
