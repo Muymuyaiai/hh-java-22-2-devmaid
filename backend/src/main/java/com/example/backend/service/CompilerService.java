@@ -32,7 +32,7 @@ public class CompilerService {
 
         CompileResult newCompileResult = Objects.requireNonNull(client.get()
                 .uri("submissions/" + newCompileToken.getToken() + "?base64_encoded=true&fields=*")
-                .header("X-RapidAPI-Key", "dd6abc6649mshef460ce31ccc898p1afa5djsn6a4081966393")
+                .header("X-RapidAPI-Key", System.getenv("RAPID_API_KEY"))
                 .header("X-RapidAPI-Host", "judge0-ce.p.rapidapi.com")
                 .retrieve()
                 .toEntity(CompileResult.class)
