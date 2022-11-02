@@ -12,9 +12,6 @@ function App() {
     const [password, setPassword] = useState("")
     const [me, setMe] = useState("")
 
-    const [newUsername, setNewUsername] = useState("")
-    const [newPassword, setNewPassword] = useState("")
-
     function handleLogin(){
         // log in (get session) with username and password
         axios.get("api/user/login", {auth: {username, password}})
@@ -25,22 +22,6 @@ function App() {
             .catch(() => alert("Sorry, User oder Passwort war falsch!"))
     }
 
-    function handleLogout(){
-        axios.get("api/user/logout")
-            .then(() => setMe(""))
-    }
-
-    function handleRegister(){
-        axios.post("api/user/register", {
-            username: newUsername,
-            password: newPassword
-        })
-            .then(() => setNewUsername(""))
-            .then(() => setNewPassword(""))
-    }
-
-
-
     return (
         <div>
             {!me &&
@@ -49,11 +30,6 @@ function App() {
                     <input value={username} onChange={event => setUsername(event.target.value)}/>
                     <input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                     <button onClick={handleLogin}>Login</button>
-
-                    <h3>Sign Up</h3>
-                    <input value={newUsername} onChange={event => setNewUsername(event.target.value)} />
-                    <input type="password" value={newPassword} onChange={event => setNewPassword(event.target.value)} />
-                    <button onClick={handleRegister}>Sign Up</button>
                 </>
             }
             {me && <>
