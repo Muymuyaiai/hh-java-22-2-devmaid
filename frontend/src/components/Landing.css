@@ -1,0 +1,60 @@
+
+
+.container {
+  background-color: #31332b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  color: white;
+  align-items: stretch;
+}
+
+.editor {
+  min-width: 70vh;
+  width: 100%;
+}
+
+.editor textarea{
+  width: 100%;
+  height: 30vh;
+
+}
+
+.translator {
+  width: 40vh;
+  height: 70vh;
+  max-height: 70vh;
+}
+
+.translator textarea {
+  height: 50%;
+}
+
+
+
+textarea{
+  width: 100%;
+  background-color: #1a1a16;
+  border: none;
+  resize: none;
+  color: #f4f4ee;
+}
+
+input {
+  width: 100%;
+  background-color: #272822;
+  border: 1px solid #171713;
+  color: #f4f4ee;
+
+}
+
+button {
+  background-color: #272822;
+  border: 1px solid #171713;
+  color: #f4f4ee;
+}
+
+button:hover {
+  background-color: #3a4d3a;
+}
