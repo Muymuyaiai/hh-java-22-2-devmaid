@@ -1,7 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.CompileRequest;
-import com.example.backend.model.CompileResult;
+import com.example.backend.model.CompileReturn;
 import com.example.backend.model.CompileToken;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -30,12 +30,12 @@ public class CompilerService {
 
         assert newCompileToken != null;
 
-        CompileResult newCompileResult = Objects.requireNonNull(client.get()
+        CompileReturn newCompileResult = Objects.requireNonNull(client.get()
                 .uri("submissions/" + newCompileToken.getToken() + "?base64_encoded=true&fields=*")
                 .header("X-RapidAPI-Key", System.getenv("RAPID_API_KEY"))
                 .header("X-RapidAPI-Host", "judge0-ce.p.rapidapi.com")
                 .retrieve()
-                .toEntity(CompileResult.class)
+                .toEntity(CompileReturn.class)
                 .block())
                 .getBody();
 

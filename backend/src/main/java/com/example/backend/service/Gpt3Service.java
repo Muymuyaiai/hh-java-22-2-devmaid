@@ -20,13 +20,13 @@ public class Gpt3Service {
     public String getCodeTranslation(CodeTranslationRequest request) {
 
         Gpt3Request newGpt3Request = Gpt3Request.builder()
-                .model("text-curie-001")
+                .model("text-davinci-002")
                 .prompt("##### Translate this function  from " + request.getSrcLang() + " into " + request.getTarLang() + "" +
                         "### " + request.getSrcLang() +
                         request.getText() +
                         "### " + request.getTarLang())
                 .temperature((float) 0.7)
-                .max_tokens(54)
+                .max_tokens(200)
                 .top_p(1)
                 .frequency_penalty(0)
                 .presence_penalty(0)

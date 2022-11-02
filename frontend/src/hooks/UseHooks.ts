@@ -7,8 +7,8 @@ export default function useHooks() {
     const [translationRes, setTranslationRes] = useState("")
     const [compileRes, setCompileRes] = useState("")
 
-    const getCodeTranslation = (newRequest: TranslationReq) => {
-        axios.post("/api/gpt3", newRequest)
+    function getCodeTranslation (newRequest: TranslationReq) {
+        return axios.post("/api/gpt3", newRequest)
             .then((response) => response.data)
             .then(setTranslationRes)
             .catch((error) => console.error(error))

@@ -1,8 +1,22 @@
 .Editor {
     text-align: left;
+    display: flex;
 }
 
 .select-lang {
-    font-size: 16px;
-    width: 800px;
+    background-color: #272822;
+    border: 1px solid #171713;
+    color: #f4f4ee;
+}
+
+.run {
+    background-color: #272822;
+    border: 1px solid #171713;
+    color: #f4f4ee;
+}
+
+.output {
+    height: 30vh;
+    width: 100%;
+    background-color: black;
 }
