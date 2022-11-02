@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.UserDto;
+import com.example.backend.model.AppUserDto;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("api/user")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService appUserService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService appUserService) {
+        this.appUserService = appUserService;
     }
 
     @GetMapping("/login")
@@ -34,8 +34,8 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String register(@RequestBody UserDto userDto){
-        return userService.register(userDto);
+    public String register(@RequestBody AppUserDto appUserDto){
+        return appUserService.register(appUserDto);
     }
 
 }

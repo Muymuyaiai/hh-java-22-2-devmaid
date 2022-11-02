@@ -1,8 +1,8 @@
 package com.example.backend.service;
 
-import com.example.backend.model.User;
-import com.example.backend.model.UserDto;
-import com.example.backend.repository.UserRepository;
+import com.example.backend.model.AppUser;
+import com.example.backend.model.AppUserDto;
+import com.example.backend.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,29 +12,26 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository userRepo;
+    private final AppUserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepo, PasswordEncoder passwordEncoder) {
+    public UserService(AppUserRepository userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
 
-    public String register(UserDto createUserDto) {
+    public String register(AppUserDto createAppUserDto) {
 
-        String hashedPassword = passwordEncoder.encode(createUserDto.getPassword());
+        String hashedPassword = passwordEncoder.encode(createAppUserDto.getPassword());
 
-        // Create AppUser
-        User appUser = new User();
-        appUser.setUsername(createUserDto.getUsername());
+        AppUser appUser = new AppUser();
+        appUser.setUsername(createAppUserDto.getUsername());
         appUser.setPasswordHash(hashedPassword);
         appUser.setRoles(List.of("USER"));
 
-        // Save AppUser in DB
         return userRepo.save(appUser).getUsername();
-
     }
 }
 

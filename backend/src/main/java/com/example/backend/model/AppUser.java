@@ -12,10 +12,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("Users")
-public class User {
+public class AppUser {
 
     @Id
     private String username;
+
     private String passwordHash;
+
     private List<String> roles;
+
+
 }

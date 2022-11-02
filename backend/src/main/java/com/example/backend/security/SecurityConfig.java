@@ -1,6 +1,6 @@
 package com.example.backend.security;
 
-import com.example.backend.service.UserDetailsService;
+import com.example.backend.service.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,11 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    private final AppUserDetailsService appUserDetailsService;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    public SecurityConfig(AppUserDetailsService appUserDetailsService) {
 
-        this.userDetailsService = userDetailsService;
+        this.appUserDetailsService = appUserDetailsService;
     }
 
     @Bean
@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(appUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 }

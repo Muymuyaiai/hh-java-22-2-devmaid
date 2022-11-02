@@ -13,7 +13,6 @@ function App() {
     const [me, setMe] = useState("")
 
     function handleLogin(){
-        // log in (get session) with username and password
         axios.get("api/user/login", {auth: {username, password}})
             .then(response => response.data)
             .then((data) => setMe(data))
