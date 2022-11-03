@@ -1,6 +1,14 @@
-
-
 .container {
+  flex-direction: column;
+}
+
+.navbar {
+  height: 4vh;
+  background-color: #1a1a16;
+  color: #f4f4ee;
+}
+
+.main {
   background-color: #31332b;
   min-height: 100vh;
   display: flex;
@@ -31,9 +39,7 @@
   height: 50%;
 }
 
-
-
-textarea{
+.translator textarea{
   width: 100%;
   background-color: #1a1a16;
   border: none;
@@ -41,20 +47,33 @@ textarea{
   color: #f4f4ee;
 }
 
-input {
+.translator input {
   width: 100%;
   background-color: #272822;
   border: 1px solid #171713;
   color: #f4f4ee;
-
 }
 
-button {
+.translator button {
   background-color: #272822;
   border: 1px solid #171713;
   color: #f4f4ee;
 }
 
-button:hover {
+.editor textarea{
+  width: 100%;
+  background-color: #1a1a16;
+  border: none;
+  resize: none;
+  color: #f4f4ee;
+}
+
+.editor button {
+  background-color: #272822;
+  border: 1px solid #171713;
+  color: #f4f4ee;
+}
+
+.Landing button:hover {
   background-color: #3a4d3a;
 }

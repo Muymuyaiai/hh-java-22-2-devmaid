@@ -1,0 +1,16 @@
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-end;
+}
+
+.navbar-container p {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.logo {
+    height: 45px;
+}
