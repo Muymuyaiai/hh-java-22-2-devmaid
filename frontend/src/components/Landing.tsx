@@ -3,6 +3,7 @@ import Translation from "./Translation";
 import TranslationReq from "../model/TranslationReq";
 import CompileReq from "../model/CompileReq";
 import CodeEditor from "./CodeEditor";
+import {Navbar} from "./Navbar";
 
 type LandingProps = {
     getCodeTranslation: (request: TranslationReq) => void
@@ -15,7 +16,12 @@ type LandingProps = {
 export default function Landing(props: LandingProps) {
 
     return (
+
         <div className="container">
+            <div className={"navbar"}>
+                <Navbar/>
+            </div>
+            <div className={"main"}>
             <div className="editor">
                 {<CodeEditor
                     getCodeCompile={props.getCodeCompile}
@@ -27,6 +33,7 @@ export default function Landing(props: LandingProps) {
                     getCodeTranslation={props.getCodeTranslation}
                     translationRes={props.translationRes}
                 />
+            </div>
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ function App() {
     const [password, setPassword] = useState("")
     const [me, setMe] = useState("")
 
-    function handleLogin(){
+    function handleLogin() {
         axios.get("api/user/login", {auth: {username, password}})
             .then(response => response.data)
             .then((data) => setMe(data))
@@ -24,12 +24,13 @@ function App() {
     return (
         <div>
             {!me &&
-                <>
-                    <h3>Login</h3>
+                <div className={"login-container"}>
+                <div className={"login"}>
                     <input value={username} onChange={event => setUsername(event.target.value)}/>
                     <input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                     <button onClick={handleLogin}>Login</button>
-                </>
+                </div>
+                </div>
             }
             {me && <>
                 <Landing
@@ -39,8 +40,8 @@ function App() {
                     translationRes={translationRes}
                 />
             </>
-                }
-            </div>
+            }
+        </div>
     );
 }
 
