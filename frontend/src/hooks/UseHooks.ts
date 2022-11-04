@@ -21,5 +21,16 @@ export default function useHooks() {
             .catch((error) => console.error(error))
     }
 
-    return {getCodeTranslation, getCodeCompile, compileRes, translationRes}
+    const getChatBotAnswer = (newRequest: string) => {
+        let newAnswer = ""
+        axios.post("/api/compiler", newRequest)
+            .then((response) => response.data)
+            .then((data:string) => newAnswer = data)
+            .catch((error) => console.error(error))
+        return newAnswer
+    }
+
+
+
+    return {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes}
 }

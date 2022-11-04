@@ -11,7 +11,7 @@ export const languageOptions: Array<LanguageOption> = [
         id: 63,
         name: "JavaScript (Node.js 12.14.0)",
         label: "JavaScript (Node.js 12.14.0)",
-        value: "javaScript",
+        value: "javascript",
     },
     {
         id: 45,
