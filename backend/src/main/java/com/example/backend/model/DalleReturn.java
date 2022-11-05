@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CodeTranslationRequest {
-    private String text;
-    private String srcLang;
-    private String tarLang;
+public class DalleReturn {
+    private String created;
+    private DalleData[] data;
 }

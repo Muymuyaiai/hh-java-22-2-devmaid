@@ -6,7 +6,7 @@ import axios from "axios";
 
 function App() {
 
-    const {getCodeTranslation, getCodeCompile, compileRes, translationRes} = useHooks()
+    const {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes, chatBotRes} = useHooks()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -35,9 +35,12 @@ function App() {
             {me && <>
                 <Landing
                     getCodeTranslation={getCodeTranslation}
+                    translationRes={translationRes}
                     getCodeCompile={getCodeCompile}
                     compileRes={compileRes}
-                    translationRes={translationRes}
+                    getChatBotAnswer={getChatBotAnswer}
+                    chatBotRes={chatBotRes}
+
                 />
             </>
             }

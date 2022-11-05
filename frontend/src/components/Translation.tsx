@@ -3,7 +3,7 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import TranslationReq from "../model/TranslationReq";
 
 type TranslationProps = {
-    translationRes: String
+    translationRes: string
     getCodeTranslation: (request: TranslationReq) => void
 }
 
@@ -43,15 +43,16 @@ export default function Translation(props: TranslationProps) {
             <label>
                 <input type={"text"} name={"srcLang"} value={translationReq.srcLang} onInput={handleChangeInput} placeholder={"Source Language"}/>
             </label>
+            <button type={"submit"}>Translate</button>
             <label>
                 <textarea name={"text"} value={translationReq.text} onInput={handleChangeText} placeholder={"Source Text"}/>
             </label>
-            <button type={"submit"}>Translate</button>
+
             <label>
                 <input type={"text"} name={"tarLang"} value={translationReq.tarLang} onInput={handleChangeInput} placeholder={"Target Language"}/>
             </label>
             <label>
-                <textarea readOnly name={"result"} value={props.translationRes.toString()}></textarea>
+                <textarea readOnly name={"result"} value={props.translationRes}></textarea>
             </label>
 
         </form>
