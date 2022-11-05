@@ -20,6 +20,7 @@
 
 .editor {
   min-width: 70vh;
+  height: 100vh;
   width: 100%;
 }
 
@@ -30,17 +31,18 @@
 }
 
 .translator {
-  width: 40vh;
+  min-width: 20vh;
   height: 70vh;
-  max-height: 70vh;
+  max-height: 100vh;
 }
 
 .translator textarea {
-  height: 50%;
+  height: 30%;
 }
 
 .translator textarea{
   width: 100%;
+  height: 30vh;
   background-color: #1a1a16;
   border: none;
   resize: none;

@@ -1,30 +1,39 @@
 import {ChangeEvent, FormEvent, useState} from "react";
+import ChatBotReq from "../model/ChatBotReq";
 
 type ChatBotProps = {
-    getChatBotAnswer: (request: string) => string
+    getChatBotAnswer: (request: ChatBotReq) => void
+    chatBotRes: string
 }
-export default function ChatBot(props: ChatBotProps){
+export default function ChatBot(props: ChatBotProps) {
     const [chatLog, setChatLog] = useState("")
-    const [chatInput, setChatInput] = useState("")
+    const [chatBotReq, setChatBotReq] = useState<ChatBotReq>({prompt:""})
+
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setChatLog(chatLog + "!\nYou: " + chatInput + "\nMarv: " + props.getChatBotAnswer(chatInput))
+        props.getChatBotAnswer(chatBotReq)
+        setChatLog(chatLog + props.chatBotRes)
+        setChatLog(chatLog + props.chatBotRes + "\nYou: "+ chatBotReq.prompt + "\nMarv: ")
+        setChatBotReq({prompt:""})
     }
 
     const handleChatInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setChatInput(event.target.value)
+        setChatBotReq({prompt:event.target.value})
     }
 
     return (
-        <form className={"chatbot"} onSubmit={handleSubmit}>
-            <label>
-                <textarea value={chatLog}/>
-            </label>
-            <label>
-                <input type={"submit"} name={"input"} value={chatInput} onInput={handleChatInput}/>
-            </label>
-
-        </form>
+        <div>
+            <textarea readOnly value={chatLog + props.chatBotRes}/>
+            <form className={"chatbot"} onSubmit={handleSubmit}>
+                <input
+                    type={"text"}
+                    name={"input"}
+                    value={chatBotReq.prompt}
+                    onInput={handleChatInput}
+                />
+                <button type={"submit"}>Send</button>
+            </form>
+        </div>
     )
 }

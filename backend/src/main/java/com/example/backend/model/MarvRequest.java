@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CodeTranslationRequest {
-    private String text;
-    private String srcLang;
-    private String tarLang;
+public class MarvRequest {
+    private String prompt;
 }
