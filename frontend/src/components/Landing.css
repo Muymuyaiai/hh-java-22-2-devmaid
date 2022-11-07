@@ -1,81 +1,95 @@
 .container {
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
+  background-color: #3d3f41;
+  color: #a9abad;
+}
+
+.container button{
+  background-color: #3d3f41;
+  color: #d5d5cd;
+  border: 1px solid #333333;
 }
 
 .navbar {
-  height: 4vh;
-  background-color: #1a1a16;
-  color: #f4f4ee;
+  background-color: #171713;
+  height: 45px;
+  width: 100%;
 }
 
-.main {
-  background-color: #31332b;
-  min-height: 100vh;
+.mainframe {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  color: white;
-  align-items: stretch;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  outline: 1px solid #333333;
 }
-
 .editor {
-  min-width: 70vh;
-  height: 100vh;
-  width: 100%;
+  height: 100%;
+  width: 70%;
 }
 
-.editor textarea{
-  width: 100%;
-  height: 30vh;
-
-}
-
-.translator {
-  min-width: 20vh;
-  height: 70vh;
-  max-height: 100vh;
-}
-
-.translator textarea {
-  height: 30%;
-}
-
-.translator textarea{
-  width: 100%;
-  height: 30vh;
-  background-color: #1a1a16;
-  border: none;
+.editor textarea {
+  width: 96%;
+  height: 24vh;
   resize: none;
-  color: #f4f4ee;
+  padding: 12px 20px;
+  background-color: #2c2c2c;
+  color: #a9abad;
+  margin: 0;
+  border: 1px solid #333333;
 }
 
-.translator input {
-  width: 100%;
-  background-color: #272822;
-  border: 1px solid #171713;
-  color: #f4f4ee;
+.editor select {
+  background-color: #2c2c2c;
+  border: 1px solid #333333;
+  color: #a9abad;
 }
 
-.translator button {
-  background-color: #272822;
-  border: 1px solid #171713;
-  color: #f4f4ee;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 30%;
+  outline: 2px solid #333333;
 }
 
-.editor textarea{
-  width: 100%;
-  background-color: #1a1a16;
+.sidebar textarea {
+  width: 99%;
+  height: 27.5vh;
+  background-color: #2c2c2c;
+  outline: 1px solid #333333;
   border: none;
+  overflow-x: visible;
   resize: none;
-  color: #f4f4ee;
+  margin: 0;
+  color: #a9abad;
 }
 
-.editor button {
-  background-color: #272822;
-  border: 1px solid #171713;
-  color: #f4f4ee;
+.sidebar input {
+  background-color: #2c2c2c;
+
+  border: none;
+  color: #a9abad;
 }
 
-.Landing button:hover {
-  background-color: #3a4d3a;
+.translator input{
+  width: 12vw;
 }
+
+textarea {
+  outline: none;
+}
+
+input {
+  outline: none;
+}
+
+
+
+

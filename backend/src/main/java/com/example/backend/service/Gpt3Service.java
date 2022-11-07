@@ -15,14 +15,14 @@ public class Gpt3Service {
 
     private final WebClient clientCompletions = WebClient.create("https://api.openai.com/v1");
 
-    public Gpt3Return getGpt3Return(Gpt3Request gpt3Request) {
+    public Gpt3Response getGpt3Return(Gpt3Request gpt3Request) {
         return Objects.requireNonNull(clientCompletions.post()
                         .uri("/completions")
                         .contentType(MediaType.APPLICATION_JSON)
                         .headers(h -> h.setBearerAuth(System.getenv("OPENAI_API_KEY")))
                         .body(BodyInserters.fromValue(gpt3Request))
                         .retrieve()
-                        .toEntity(Gpt3Return.class)
+                        .toEntity(Gpt3Response.class)
                         .block())
                 .getBody();
     }
@@ -43,7 +43,7 @@ public class Gpt3Service {
                 .stop(List.of("###"))
                 .build();
 
-        Gpt3Return newGpt3Return = getGpt3Return(newGpt3Request);
+        Gpt3Response newGpt3Return = getGpt3Return(newGpt3Request);
 
         assert newGpt3Return != null;
         return newGpt3Return.getChoices()[0].getText();
@@ -61,7 +61,7 @@ public class Gpt3Service {
                 .presence_penalty(0)
                 .build();
 
-        Gpt3Return newGpt3Return = getGpt3Return(newGpt3Request);
+        Gpt3Response newGpt3Return = getGpt3Return(newGpt3Request);
 
         assert newGpt3Return != null;
         return newGpt3Return.getChoices()[0].getText();
@@ -74,13 +74,13 @@ public class Gpt3Service {
                 .size("1024x1024")
                 .build();
 
-        DalleReturn newDalleReturn = Objects.requireNonNull(clientCompletions.post()
+        DalleResponse newDalleReturn = Objects.requireNonNull(clientCompletions.post()
                                 .uri("/images/generations")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .headers(h -> h.setBearerAuth(System.getenv("OPENAI_API_KEY")))
                                 .body(BodyInserters.fromValue(newDalleRequest))
                                 .retrieve()
-                                .toEntity(DalleReturn.class)
+                                .toEntity(DalleResponse.class)
                                 .block())
                         .getBody();
 

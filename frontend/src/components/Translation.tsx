@@ -1,6 +1,8 @@
 import './Translation.css';
-import {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import TranslationReq from "../model/TranslationReq";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPlay, faFileArrowUp, faFileArrowDown} from '@fortawesome/free-solid-svg-icons'
 
 type TranslationProps = {
     translationRes: string
@@ -33,28 +35,32 @@ export default function Translation(props: TranslationProps) {
         }))
     }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const handleSubmit = () => {
         props.getCodeTranslation(translationReq)
     }
 
     return (
-        <form className={"translator"} onSubmit={handleSubmit}>
-            <label>
-                <input type={"text"} name={"srcLang"} value={translationReq.srcLang} onInput={handleChangeInput} placeholder={"Source Language"}/>
-            </label>
-            <button type={"submit"}>Translate</button>
-            <label>
-                <textarea name={"text"} value={translationReq.text} onInput={handleChangeText} placeholder={"Source Text"}/>
-            </label>
-
-            <label>
-                <input type={"text"} name={"tarLang"} value={translationReq.tarLang} onInput={handleChangeInput} placeholder={"Target Language"}/>
-            </label>
-            <label>
-                <textarea readOnly name={"result"} value={props.translationRes}></textarea>
-            </label>
-
-        </form>
+        <div>
+            <div>Translator</div>
+            <div className="input-menu">
+                <input type={"text"} name={"srcLang"} value={translationReq.srcLang} onInput={handleChangeInput}
+                       placeholder={"Source Language"}/>
+                <input type={"text"} name={"tarLang"} value={translationReq.tarLang} onInput={handleChangeInput}
+                       placeholder={"Target Language"}/>
+                <div className={"compile"}>
+                    <FontAwesomeIcon onClick={handleSubmit} icon={faPlay} size={"1x"}/>
+                </div>
+                <div className={"bracket"}> | </div>
+                <div className={"save"}>
+                    <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowUp} size={"1x"}/>
+                </div>
+                <div className={"save"}>
+                    <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowDown} size={"1x"}/>
+                </div>
+            </div>
+            <textarea name={"text"} value={translationReq.text} onInput={handleChangeText}
+                      placeholder={"Source Text"}/>
+            <textarea readOnly name={"result"} value={props.translationRes} placeholder={"Output"}/>
+        </div>
     );
 }

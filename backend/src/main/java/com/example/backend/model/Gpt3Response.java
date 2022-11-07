@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DalleReturn {
-    private String created;
-    private DalleData[] data;
+public class Gpt3Response {
+    private String id;
+    private String object;
+    private String model;
+    private Gpt3Choices[] choices;
+    private Gpt3Usage usage;
 }

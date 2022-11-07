@@ -1,22 +1,33 @@
-.Editor {
-    text-align: left;
+.editor-menu {
     display: flex;
+    justify-content: space-between;
 }
 
-.select-lang {
-    background-color: #272822;
-    border: 1px solid #171713;
-    color: #f4f4ee;
+.actions {
+    display: flex;
+    flex-direction: row;
 }
 
-.run {
-    background-color: #272822;
-    border: 1px solid #171713;
-    color: #f4f4ee;
+.compile {
+    color: #499754;
+    padding: 0 5px 0 5px;
 }
 
-.output {
-    height: 30vh;
-    width: 100%;
-    background-color: black;
+.compile:hover {
+    background-color: #5f6265;
+    border-radius: 3px;
+}
+
+.save {
+    color: #a9abad;
+    padding: 0 7px 0 7px;
+}
+
+.save:hover {
+    background-color: #5f6265;
+    border-radius: 3px;
+}
+
+.bracket {
+    color: #6b6a6a;
 }

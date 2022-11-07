@@ -1,39 +1,23 @@
 import './App.css';
-import useHooks from "./hooks/UseHooks";
+import UseHooks from "./hooks/UseHooks";
 import Landing from "./components/Landing";
-import {useState} from "react";
-import axios from "axios";
+import UseLogin from "./hooks/UseLogin";
+import Login from "./components/Login";
 
 function App() {
 
-    const {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes, chatBotRes} = useHooks()
-
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [me, setMe] = useState("")
-
-    function handleLogin() {
-        axios.get("api/user/login", {auth: {username, password}})
-            .then(response => response.data)
-            .then((data) => setMe(data))
-            .then(() => setUsername(""))
-            .then(() => setPassword(""))
-            .catch(() => alert("Sorry, User oder Passwort war falsch!"))
-    }
+    const {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes, chatBotRes} = UseHooks()
+    const {handleLogin, handleLogout, me} = UseLogin()
 
     return (
         <div>
             {!me &&
-                <div className={"login-container"}>
-                <div className={"login"}>
-                    <input value={username} onChange={event => setUsername(event.target.value)}/>
-                    <input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
-                    <button onClick={handleLogin}>Login</button>
-                </div>
-                </div>
+                <Login handleLogin={handleLogin}/>
             }
             {me && <>
                 <Landing
+                    me={me}
+                    handleLogout={handleLogout}
                     getCodeTranslation={getCodeTranslation}
                     translationRes={translationRes}
                     getCodeCompile={getCodeCompile}
