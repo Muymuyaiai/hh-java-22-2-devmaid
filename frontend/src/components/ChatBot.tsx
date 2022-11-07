@@ -1,5 +1,9 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import './ChatBot.css';
+import React, {ChangeEvent, useState} from "react";
 import ChatBotReq from "../model/ChatBotReq";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+
 
 type ChatBotProps = {
     getChatBotAnswer: (request: ChatBotReq) => void
@@ -7,33 +11,37 @@ type ChatBotProps = {
 }
 export default function ChatBot(props: ChatBotProps) {
     const [chatLog, setChatLog] = useState("")
-    const [chatBotReq, setChatBotReq] = useState<ChatBotReq>({prompt:""})
+    const [chatBotReq, setChatBotReq] = useState<ChatBotReq>({prompt: ""})
 
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const handleSubmit = () => {
+
         props.getChatBotAnswer(chatBotReq)
         setChatLog(chatLog + props.chatBotRes)
-        setChatLog(chatLog + props.chatBotRes + "\nYou: "+ chatBotReq.prompt + "\nMarv: ")
-        setChatBotReq({prompt:""})
+        setChatLog(chatLog + props.chatBotRes + "\nYou: " + chatBotReq.prompt + "\nMarv: ")
+        setChatBotReq({prompt: ""})
     }
 
     const handleChatInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setChatBotReq({prompt:event.target.value})
+        setChatBotReq({prompt: event.target.value})
     }
 
     return (
         <div>
-            <textarea readOnly value={chatLog + props.chatBotRes}/>
-            <form className={"chatbot"} onSubmit={handleSubmit}>
+            <div>Marv</div>
+            <textarea readOnly id={"output"} value={chatLog + props.chatBotRes}/>
+            <div className="input-chat">
+                <div>
                 <input
                     type={"text"}
-                    name={"input"}
                     value={chatBotReq.prompt}
                     onInput={handleChatInput}
                 />
-                <button type={"submit"}>Send</button>
-            </form>
+                </div>
+                <div className={"send"}>
+                    <FontAwesomeIcon onClick={handleSubmit} icon={faPaperPlane}/>
+                </div>
+            </div>
         </div>
     )
 }

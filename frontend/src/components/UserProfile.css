@@ -1,0 +1,17 @@
+.user-profile-container {
+    position: absolute;
+    display: block;
+    align-self: center;
+    height: 600px;
+    width: 800px;
+    margin-top: 100px;
+    background-color: #3d3f41;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 10px 0 0;
+}

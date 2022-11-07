@@ -1,0 +1,20 @@
+.input-chat {
+    display: flex;
+    flex-direction: row;
+    outline: 1px solid #333333;
+    justify-content: space-between;
+}
+
+.input-chat input {
+    width: 27.5vw;
+}
+
+.send {
+    padding: 0 10px 0 5px;
+
+}
+
+.send:hover {
+    background-color: #5f6265;
+    border-radius: 3px;
+}

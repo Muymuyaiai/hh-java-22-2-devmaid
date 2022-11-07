@@ -1,7 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.CompileRequest;
-import com.example.backend.model.CompileReturn;
+import com.example.backend.model.CompileResponse;
 import com.example.backend.model.CompileToken;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CompilerService {
 
         CompileToken newCompileToken = Objects.requireNonNull(client.post()
                         .uri("/submissions?base64_encoded=true&fields=*")
-                        .header("X-RapidAPI-Key", "dd6abc6649mshef460ce31ccc898p1afa5djsn6a4081966393")
+                        .header("X-RapidAPI-Key", System.getenv("RAPID_API_KEY"))
                         .header("X-RapidAPI-Host", "judge0-ce.p.rapidapi.com")
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromValue(compileRequest))
@@ -30,16 +30,21 @@ public class CompilerService {
 
         assert newCompileToken != null;
 
-        CompileReturn newCompileResult = Objects.requireNonNull(client.get()
+        CompileResponse newCompileResult = Objects.requireNonNull(client.get()
                 .uri("submissions/" + newCompileToken.getToken() + "?base64_encoded=true&fields=*")
                 .header("X-RapidAPI-Key", System.getenv("RAPID_API_KEY"))
                 .header("X-RapidAPI-Host", "judge0-ce.p.rapidapi.com")
                 .retrieve()
-                .toEntity(CompileReturn.class)
+                .toEntity(CompileResponse.class)
                 .block())
                 .getBody();
 
+
         assert newCompileResult != null;
-        return newCompileResult.getStdout();
+
+        if (newCompileResult.getStdout() != null){
+            return newCompileResult.getStdout();
+        }
+        return newCompileResult.getCompile_output();
     }
 }

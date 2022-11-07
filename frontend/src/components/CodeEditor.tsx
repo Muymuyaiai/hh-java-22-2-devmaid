@@ -1,13 +1,23 @@
 import './CodeEditor.css';
-import React, {FormEvent, useState} from "react";
+import React, {useState} from "react";
 import Editor from "@monaco-editor/react";
 import {languageOptions} from "./LanguageOptions";
 import CompileReq from "../model/CompileReq";
 import LanguageOption from '../model/LanguageOption';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPlay, faFileArrowUp, faFileArrowDown } from '@fortawesome/free-solid-svg-icons'
+
 
 type CodeEditorProps = {
-    compileRes: String
+    compileRes: string
     getCodeCompile: (request: CompileReq) => void
+}
+
+const MONACO_OPTIONS = {
+    minimap: {
+        enabled: false,
+    },
+    fontSize: 13
 }
 
 export default function CodeEditor(props: CodeEditorProps) {
@@ -20,39 +30,51 @@ export default function CodeEditor(props: CodeEditorProps) {
     }
 
     const handleSelectLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const  newLang = languageOptions.find((value:LanguageOption) => value.value === event.target.value)
+        const newLang = languageOptions.find((value: LanguageOption) => value.value === event.target.value)
         newLang && setLanguage(newLang)
         console.log('language:', newLang);
     }
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        props.getCodeCompile({language_id: language.id, source_code: btoa(code), stdin: btoa("")})
+    const handleSubmit = () => {
+
+        props.getCodeCompile({language_id: language.id, source_code: code, stdin: ""})
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <select className={"select-lang"} onChange={handleSelectLanguage}>
-                {languageOptions.map((option) => (
-                    <option key={option.id} value={option.value}>
-                        {option.name}
-                    </option>
-                ))}
-            </select>
-            <button type={"submit"}>Compile</button>
-            <div className={"Editor"}>
-                <Editor
-                    width="100%"
-                    height="70vh"
-                    language={language.value}
-                    theme="vs-dark"
-                    value={code}
-                    onChange={handleChange}
-                />
+        <div>
+            <div className="editor-menu">
+                <select onChange={handleSelectLanguage}>
+                    {languageOptions.map((option) => (
+                        <option key={option.id} value={option.value}>
+                            {option.name}
+                        </option>
+                    ))}
+                </select>
+                <div className={"actions"}>
+                    <div className={"compile"}>
+                        <FontAwesomeIcon onClick={handleSubmit} icon={faPlay} size={"1x"}/>
+                    </div>
+                    <div className={"bracket"}> | </div>
+                    <div className={"save"}>
+                        <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowUp} size={"1x"}/>
+                    </div>
+                    <div className={"save"}>
+                        <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowDown} size={"1x"}/>
+                    </div>
+                </div>
             </div>
+            <Editor
+                width="100%"
+                height="64vh"
+                options={MONACO_OPTIONS}
+                language={language.value}
+                theme="vs-dark"
+                value={code}
+                onChange={handleChange}
+            />
 
-            <label className={"compiler"}>
-                <textarea readOnly value={atob(props.compileRes.toString())}/>
-            </label>
-        </form>
+            <div>
+                <textarea readOnly value={props.compileRes}/>
+            </div>
+        </div>
     );
 }
