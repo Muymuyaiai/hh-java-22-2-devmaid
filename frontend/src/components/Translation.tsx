@@ -1,8 +1,8 @@
 import './Translation.css';
 import React, {ChangeEvent, useState} from "react";
 import TranslationReq from "../model/TranslationReq";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlay, faFileArrowUp, faFileArrowDown} from '@fortawesome/free-solid-svg-icons'
+import { FaPlay, FaFolderOpen, FaSave } from 'react-icons/fa';
+
 
 type TranslationProps = {
     translationRes: string
@@ -47,15 +47,15 @@ export default function Translation(props: TranslationProps) {
                        placeholder={"Source Language"}/>
                 <input type={"text"} name={"tarLang"} value={translationReq.tarLang} onInput={handleChangeInput}
                        placeholder={"Target Language"}/>
-                <div className={"compile"}>
-                    <FontAwesomeIcon onClick={handleSubmit} icon={faPlay} size={"1x"}/>
+                <div className={"run"}>
+                    <FaPlay onClick={handleSubmit}/>
                 </div>
                 <div className={"bracket"}> | </div>
                 <div className={"save"}>
-                    <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowUp} size={"1x"}/>
+                    <FaSave onClick={handleSubmit} />
                 </div>
-                <div className={"save"}>
-                    <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowDown} size={"1x"}/>
+                <div className={"load"}>
+                    <FaFolderOpen onClick={handleSubmit} />
                 </div>
             </div>
             <textarea name={"text"} value={translationReq.text} onInput={handleChangeText}

@@ -8,3 +8,51 @@
     flex-direction: row;
     outline: 1px solid #333333;
 }
+
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+.run {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #499754;
+    padding: 0 5px 0 5px;
+}
+
+.run:hover {
+    background-color: #5f6265;
+    border-radius: 3px;
+}
+
+.save {
+    display: flex;
+    align-items: center;
+    color: #a9abad;
+    padding: 0 5px 0 5px;
+}
+
+.save:hover {
+    background-color: #5f6265;
+    border-radius: 3px;
+}
+
+.load {
+    display: flex;
+    align-items: center;
+    color: #a9abad;
+    padding: 0 5px 0 5px;
+}
+
+.load:hover {
+    background-color: #5f6265;
+    border-radius: 3px;
+}
+
+.bracket {
+    display: flex;
+    align-items: center;
+    color: #6b6a6a;
+}

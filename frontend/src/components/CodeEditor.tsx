@@ -4,8 +4,7 @@ import Editor from "@monaco-editor/react";
 import {languageOptions} from "./LanguageOptions";
 import CompileReq from "../model/CompileReq";
 import LanguageOption from '../model/LanguageOption';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlay, faFileArrowUp, faFileArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { FaPlay, FaFolderOpen, FaSave } from 'react-icons/fa';
 
 
 type CodeEditorProps = {
@@ -50,15 +49,15 @@ export default function CodeEditor(props: CodeEditorProps) {
                     ))}
                 </select>
                 <div className={"actions"}>
-                    <div className={"compile"}>
-                        <FontAwesomeIcon onClick={handleSubmit} icon={faPlay} size={"1x"}/>
+                    <div className={"run"}>
+                        <FaPlay onClick={handleSubmit}/>
                     </div>
                     <div className={"bracket"}> | </div>
                     <div className={"save"}>
-                        <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowUp} size={"1x"}/>
+                        <FaSave onClick={handleSubmit}/>
                     </div>
-                    <div className={"save"}>
-                        <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowDown} size={"1x"}/>
+                    <div className={"load"}>
+                        <FaFolderOpen onClick={handleSubmit}/>
                     </div>
                 </div>
             </div>

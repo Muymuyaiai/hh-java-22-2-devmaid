@@ -1,8 +1,7 @@
 import './ChatBot.css';
 import React, {ChangeEvent, useState} from "react";
 import ChatBotReq from "../model/ChatBotReq";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import { FaPaperPlane } from 'react-icons/fa';
 
 
 type ChatBotProps = {
@@ -39,7 +38,7 @@ export default function ChatBot(props: ChatBotProps) {
                 />
                 </div>
                 <div className={"send"}>
-                    <FontAwesomeIcon onClick={handleSubmit} icon={faPaperPlane}/>
+                    <FaPaperPlane onClick={handleSubmit}/>
                 </div>
             </div>
         </div>

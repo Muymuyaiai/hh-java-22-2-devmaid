@@ -1,7 +1,6 @@
 import './Navbar.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {Dispatch, SetStateAction} from "react";
+import { FaTerminal } from 'react-icons/fa';
 
 
 type NavbarProps = {
@@ -22,7 +21,7 @@ export function Navbar (props: NavbarProps) {
                 <h3>dev_MAID</h3>
             </div>
             <div className="dropdown">
-                <FontAwesomeIcon className="dd-button" icon={faUser} size="2x"/>
+                <FaTerminal className="dd-button"/>
                 <input type="checkbox" className="dd-input" id="test"/>
                 <ul className="dd-menu">
                     <div className="signed-in">
