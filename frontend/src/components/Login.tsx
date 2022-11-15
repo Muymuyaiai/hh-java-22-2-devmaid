@@ -5,7 +5,7 @@ type LoginProps = {
     handleLogin: (username: string, password: string) => void
 }
 
-export default function Login (props: LoginProps){
+export default function Login(props: LoginProps) {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -18,12 +18,12 @@ export default function Login (props: LoginProps){
 
     return (
 
-    <div className={"login-container"}>
-        <div className={"login"}>
-            <input value={username} onChange={event => setUsername(event.target.value)}/>
-            <input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
-            <button onClick={handleLogin}>Login</button>
+        <div className={"login-container"}>
+            <div className={"login"}>
+                <input value={username} onChange={event => setUsername(event.target.value)}/>
+                <input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
+                <button onClick={handleLogin}>Login</button>
+            </div>
         </div>
-    </div>
     )
 }

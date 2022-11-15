@@ -3,7 +3,6 @@ import React, {ChangeEvent, useState} from "react";
 import TranslationReq from "../model/TranslationReq";
 import { FaPlay, FaFolderOpen, FaSave } from 'react-icons/fa';
 
-
 type TranslationProps = {
     translationRes: string
     getCodeTranslation: (request: TranslationReq) => void
@@ -51,16 +50,17 @@ export default function Translation(props: TranslationProps) {
                     <FaPlay onClick={handleSubmit}/>
                 </div>
                 <div className={"bracket"}> | </div>
-                <div className={"save"}>
-                    <FaSave onClick={handleSubmit} />
+                <div className="save">
+                    <FaSave />
                 </div>
                 <div className={"load"}>
-                    <FaFolderOpen onClick={handleSubmit} />
+                    <FaFolderOpen  />
                 </div>
             </div>
             <textarea name={"text"} value={translationReq.text} onInput={handleChangeText}
                       placeholder={"Source Text"}/>
             <textarea readOnly name={"result"} value={props.translationRes} placeholder={"Output"}/>
+
         </div>
     );
 }

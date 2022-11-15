@@ -1,6 +1,6 @@
-package com.example.backend.repository;
+package com.example.backend.security.repository;
 
-import com.example.backend.model.AppUser;
+import com.example.backend.security.model.AppUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
