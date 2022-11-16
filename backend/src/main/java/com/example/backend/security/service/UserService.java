@@ -80,12 +80,11 @@ public class UserService {
                 appUser.setPasswordHash(passwordEncoder.encode(appUserDto.getPassword()));
             }
             if (appUserDto.getTranslations() != null) {
-                appUser.getTranslations().addAll(appUserDto.getTranslations());
+                appUser.setTranslations(appUserDto.getTranslations());
             }
             if (appUserDto.getSourceCodes() != null) {
-                appUser.getSourceCodes().addAll(appUserDto.getSourceCodes());
+                appUser.setSourceCodes(appUserDto.getSourceCodes());
             }
-
             return userRepo.save(appUser).getUsername();
     }
 

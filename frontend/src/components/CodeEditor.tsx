@@ -7,10 +7,11 @@ import LanguageOption from '../model/LanguageOption';
 import {FaPlay, FaFolderOpen, FaSave} from 'react-icons/fa';
 import {UserInfo} from "../model/UserInfo";
 import User from "../model/User";
+import SourceCode from "../model/SourceCode";
 
 type CodeEditorProps = {
     me: UserInfo
-    user: User | undefined
+    user: User
     compileRes: string
     getUser: (username: string) => void
     getCodeCompile: (request: CompileReq) => void
@@ -48,6 +49,7 @@ export default function CodeEditor(props: CodeEditorProps) {
 
     const toggleSaveDropdown = () => {
         setEditorSaveDropdown(!editorSaveDropdown)
+        props.getUser(props.me.username)
     }
 
     const toggleLoadDropdown = () => {
@@ -63,12 +65,13 @@ export default function CodeEditor(props: CodeEditorProps) {
         if (event.key === 'Enter') {
             if (!saveName) {
                 alert("Please enter a name to save!")
-            } else if (props.user?.sourceCodes?.map((code) => code.name === saveName)) {
+            } else if (props.user?.sourceCodes?.find((code) => code.name === saveName)) {
                 alert("Name already exists!")
             }else {
-                let updatedUser: User = {
+                const newSourceCodes: SourceCode[] | undefined = props.user.sourceCodes?.concat([{name: saveName, language: language.name, code: code}])
+                const updatedUser: User = {
                     username: props.me.username,
-                    sourceCodes: [{name: saveName, language: language.name, code: code}]
+                    sourceCodes: newSourceCodes
                 }
                 props.updateUser(updatedUser)
             }
@@ -127,7 +130,7 @@ export default function CodeEditor(props: CodeEditorProps) {
                 </ul>
             }
             {editorLoadDropdown &&
-                <ul onBlur={() => toggleLoadDropdown()} className="editor-save-dd-menu">
+                <ul className="editor-save-dd-menu">
                     {props.user?.sourceCodes?.map((code) =>
                         <li key={code.name} onClick={(e) =>
                             handleEditorLoad(e, code.language, code.code)}>{code.name + " | " + code.language}</li>)}

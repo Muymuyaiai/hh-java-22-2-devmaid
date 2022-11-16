@@ -1,5 +1,5 @@
 import './Landing.css';
-import Translation from "./Translation";
+import Translator from "./Translator";
 import ChatBot from "./ChatBot";
 import TranslationReq from "../model/TranslationReq";
 import CompileReq from "../model/CompileReq";
@@ -53,7 +53,7 @@ export default function Landing(props: LandingProps) {
                 </div>
                 <div className="sidebar">
                     <div className="translator">
-                        <Translation
+                        <Translator
                             me={props.me}
                             user={props.user}
                             getUser={props.getUser}

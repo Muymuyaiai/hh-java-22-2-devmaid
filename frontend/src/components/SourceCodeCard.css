@@ -14,3 +14,7 @@
     box-sizing: border-box;
     width: 100%
 }
+
+.code-delete {
+    color: #974949;
+}

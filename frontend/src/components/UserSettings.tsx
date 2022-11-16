@@ -8,6 +8,8 @@ import {UserInfo} from "../model/UserInfo";
 import UserDTO from "../model/UserDTO";
 import TranslationCard from './TranslationCard';
 import SourceCodeCard from "./SourceCodeCard";
+import Translation from "../model/Translation";
+import SourceCode from "../model/SourceCode";
 
 
 type UserProfileProps = {
@@ -70,14 +72,32 @@ export default function UserSettings(props: UserProfileProps) {
 
     const mapTranslations = () => {
         return props.user.translations?.map((transl) =>
-            <div key={transl.name}><TranslationCard translation={transl}/>
+            <div key={transl.name}><TranslationCard translation={transl} deleteTranslation={deleteTranslation}/>
             </div>)
     }
 
     const mapCodes = () => {
         return props.user.sourceCodes?.map((code) =>
-            <div key={code.name}><SourceCodeCard code={code}/>
+            <div key={code.name}><SourceCodeCard code={code} deleteSourceCode={deleteSourceCode}/>
             </div>)
+    }
+
+    const deleteTranslation = (translation: Translation) => {
+        props.getUser(props.me.username)
+        let updatedUser: User = {
+            username: props.user.username,
+            translations: props.user.translations?.filter((transl) => transl !== translation)
+        }
+        props.updateUser(updatedUser)
+    }
+
+    const deleteSourceCode = (sourceCode: SourceCode) => {
+        props.getUser(props.me.username)
+        let updatedUser: User = {
+            username: props.user.username,
+            sourceCodes: props.user.sourceCodes?.filter((code) => code !== sourceCode)
+        }
+        props.updateUser(updatedUser)
     }
 
     return (

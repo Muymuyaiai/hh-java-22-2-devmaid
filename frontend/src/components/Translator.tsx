@@ -1,10 +1,11 @@
-import './Translation.css';
+import './Translator.css';
 import React, {ChangeEvent, useState} from "react";
 import TranslationReq from "../model/TranslationReq";
 import { FaPlay, FaFolderOpen, FaSave } from 'react-icons/fa';
 import {UserInfo} from "../model/UserInfo";
 import User from "../model/User";
 import UserDTO from "../model/UserDTO";
+import Translation from "../model/Translation";
 
 type TranslationProps = {
     me: UserInfo
@@ -16,7 +17,7 @@ type TranslationProps = {
     setTranslationRes: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function Translation(props: TranslationProps) {
+export default function Translator(props: TranslationProps) {
     const [translSaveDropdown, setTranslSaveDropdown] = useState(false)
     const [translLoadDropdown, setTranslLoadDropdown] = useState(false)
     const [saveName, setSaveName] = useState("")
@@ -66,13 +67,15 @@ export default function Translation(props: TranslationProps) {
         if (event.key === 'Enter') {
             if (!saveName) {
                 alert("Please enter a name to save!")
-            } else if (props.user?.translations?.map((transl) => transl.name === saveName)) {
+            } else if (props.user?.translations?.find((transl) => transl.name === saveName)) {
                 alert("Name already exists!")
             }else {
+                const newTranslations: Translation[] | undefined = props.user?.translations?.concat([{name: saveName, srcLang: translationReq.srcLang, tarLang: translationReq.tarLang, srcText: translationReq.text, resText:props.translationRes}])
                 let updatedUser: User = {
                     username: props.me.username,
-                    translations: [{name: saveName, srcLang: translationReq.srcLang, tarLang: translationReq.tarLang, srcText: translationReq.text, resText:props.translationRes}]
+                    translations: newTranslations
                 }
+
                 props.updateUser(updatedUser)
             }
             toggleSaveDropdown()
@@ -118,10 +121,12 @@ export default function Translation(props: TranslationProps) {
                 </ul>
             }
             {translLoadDropdown &&
-                <ul onBlur={() => toggleLoadDropdown()} className="transl-save-dd-menu">
+                <ul  className="transl-save-dd-menu">
                     {props.user?.translations?.map((transl) =>
                         <li key={transl.name} onClick={(e) =>
-                            handleTranslLoad(e, transl.srcLang, transl.tarLang, transl.srcText, transl.resText)}>{transl.name + " | " + transl.srcLang + " -> " + transl.tarLang}</li>)}
+                            handleTranslLoad(e, transl.srcLang, transl.tarLang, transl.srcText, transl.resText)}>
+                            {transl.name + " | " + transl.srcLang + " -> " + transl.tarLang}
+                        </li>)}
                 </ul>
             }
         </div>

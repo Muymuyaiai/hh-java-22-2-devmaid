@@ -1,8 +1,10 @@
 import './SourceCodeCard.css';
 import SourceCode from "../model/SourceCode";
+import { ImCross } from 'react-icons/im';
 
 type SourceCodeCardProps = {
     code: SourceCode
+    deleteSourceCode: (sourceCode: SourceCode) => void
 }
 
 export default function SourceCodeCard(props: SourceCodeCardProps) {
@@ -14,6 +16,9 @@ export default function SourceCodeCard(props: SourceCodeCardProps) {
             </div>
             <div className="code-lang">
                 {props.code.language}
+            </div>
+            <div>
+                <ImCross className="code-delete" onClick={() => props.deleteSourceCode(props.code)}/>
             </div>
         </div>
     )

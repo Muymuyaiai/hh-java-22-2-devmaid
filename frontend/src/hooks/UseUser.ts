@@ -54,9 +54,8 @@ export default function UseUser() {
 
     function updateUser(updatedUser: User) {
         axios.post("api/user/update/", updatedUser)
-            .then(response => {
-                console.log(response.data)
-            })
+            .then(response => response.data)
+            .then(getUser)
             .catch((error) => console.error(error))
     }
 
