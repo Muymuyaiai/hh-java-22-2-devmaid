@@ -3,8 +3,7 @@ import Translation from "./Translation";
 
 type User = {
     username: string
-    roles: string[]
-    password?: string
+    roles?: string[]
     translations?: Translation[]
     sourceCodes?: SourceCode[]
 }

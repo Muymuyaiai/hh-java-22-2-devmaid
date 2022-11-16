@@ -10,19 +10,21 @@ import UserSettings from "./UserSettings";
 import React, {useState} from "react";
 import User from "../model/User";
 import {UserInfo} from "../model/UserInfo";
-import UserDTO from '../model/UserDTO';
 
 type LandingProps = {
     me: UserInfo
     users: User[]
+    user: User
+    getUser: (username: string) => void
     getAllUsers: () => void
     createUser: (username: string, password: string) => void
-    updateUser: (updatedUser: UserDTO) => void
+    updateUser: (updatedUser: User) => void
     deleteUser: (username: String) => void
     handleLogout: () => void
     getCodeTranslation: (request: TranslationReq) => void
     getCodeCompile: (request: CompileReq) => void
     getChatBotAnswer: (request: ChatBotReq) => void
+    setTranslationRes: React.Dispatch<React.SetStateAction<string>>
     compileRes: string
     translationRes: string
     chatBotRes: string
@@ -42,6 +44,8 @@ export default function Landing(props: LandingProps) {
                 <div className="editor ">
                     <CodeEditor
                         me={props.me}
+                        user={props.user}
+                        getUser={props.getUser}
                         getCodeCompile={props.getCodeCompile}
                         compileRes={props.compileRes}
                         updateUser={props.updateUser}
@@ -50,8 +54,13 @@ export default function Landing(props: LandingProps) {
                 <div className="sidebar">
                     <div className="translator">
                         <Translation
+                            me={props.me}
+                            user={props.user}
+                            getUser={props.getUser}
                             getCodeTranslation={props.getCodeTranslation}
                             translationRes={props.translationRes}
+                            updateUser={props.updateUser}
+                            setTranslationRes={props.setTranslationRes}
                         />
                     </div>
                     <div className="chatbot">
@@ -66,6 +75,8 @@ export default function Landing(props: LandingProps) {
                 <UserSettings
                     setSettings={setSettings}
                     users={props.users}
+                    user={props.user}
+                    getUser={props.getUser}
                     getAllUsers={props.getAllUsers}
                     createUser={props.createUser}
                     updateUser={props.updateUser}

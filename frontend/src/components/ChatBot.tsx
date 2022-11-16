@@ -12,9 +12,7 @@ export default function ChatBot(props: ChatBotProps) {
     const [chatLog, setChatLog] = useState("")
     const [chatBotReq, setChatBotReq] = useState<ChatBotReq>({prompt: ""})
 
-
     const handleSubmit = () => {
-
         props.getChatBotAnswer(chatBotReq)
         setChatLog(chatLog + props.chatBotRes)
         setChatLog(chatLog + props.chatBotRes + "\nYou: " + chatBotReq.prompt + "\nMarv: ")
@@ -34,6 +32,7 @@ export default function ChatBot(props: ChatBotProps) {
                 <input
                     type={"text"}
                     value={chatBotReq.prompt}
+                    onKeyDown={(e) => {e.key === 'Enter' && handleSubmit()}}
                     onInput={handleChatInput}
                 />
                 </div>

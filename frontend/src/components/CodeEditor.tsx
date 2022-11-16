@@ -5,15 +5,16 @@ import {languageOptions} from "./LanguageOptions";
 import CompileReq from "../model/CompileReq";
 import LanguageOption from '../model/LanguageOption';
 import {FaPlay, FaFolderOpen, FaSave} from 'react-icons/fa';
-import UserDTO from "../model/UserDTO";
 import {UserInfo} from "../model/UserInfo";
-import UseUser from "../hooks/UseUser";
+import User from "../model/User";
 
 type CodeEditorProps = {
     me: UserInfo
+    user: User | undefined
     compileRes: string
+    getUser: (username: string) => void
     getCodeCompile: (request: CompileReq) => void
-    updateUser: (updatedUser: UserDTO) => void
+    updateUser: (updatedUser: User) => void
 }
 
 const MONACO_OPTIONS = {
@@ -29,8 +30,6 @@ export default function CodeEditor(props: CodeEditorProps) {
     const [editorSaveDropdown, setEditorSaveDropdown] = useState(false)
     const [editorLoadDropdown, setEditorLoadDropdown] = useState(false)
     const [saveName, setSaveName] = useState("")
-
-    const {user, getUserById} = UseUser()
 
     const handleChange = (newCode: string | undefined) => {
         console.log('onChange', newCode);
@@ -53,17 +52,21 @@ export default function CodeEditor(props: CodeEditorProps) {
 
     const toggleLoadDropdown = () => {
         setEditorLoadDropdown(!editorLoadDropdown)
-        getUserById(props.me.username)
+        props.getUser(props.me.username)
+    }
+
+    const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+        setSaveName(event.target.value)
     }
 
     const handleEditorSave = (event: any) => {
         if (event.key === 'Enter') {
             if (!saveName) {
                 alert("Please enter a name to save!")
-            } else if (user?.sourceCodes?.map((code) => code.name === saveName)) {
+            } else if (props.user?.sourceCodes?.map((code) => code.name === saveName)) {
                 alert("Name already exists!")
             }else {
-                let updatedUser: UserDTO = {
+                let updatedUser: User = {
                     username: props.me.username,
                     sourceCodes: [{name: saveName, language: language.name, code: code}]
                 }
@@ -74,9 +77,6 @@ export default function CodeEditor(props: CodeEditorProps) {
         }
     }
 
-    const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-        setSaveName(event.target.value)
-    }
     const handleEditorLoad = (event: React.MouseEvent<HTMLLIElement>,language: string, code: string) => {
         setCode(code)
         toggleLoadDropdown()
@@ -120,15 +120,17 @@ export default function CodeEditor(props: CodeEditorProps) {
                 </div>
             </div>
             {editorSaveDropdown &&
-                <ul className="editor-save-dd-menu">
+                <ul  className="editor-save-dd-menu">
                     <li>
-                        <input value={saveName} onInput={handleChangeName} onKeyDown={handleEditorSave}/>
+                        <input value={saveName} autoFocus onBlur={() => toggleSaveDropdown()} onInput={handleChangeName} onKeyDown={handleEditorSave}/>
                     </li>
                 </ul>
             }
             {editorLoadDropdown &&
-                <ul className="editor-save-dd-menu">
-                    {user?.sourceCodes?.map((code) => <li key={code.name} onClick={(e) =>handleEditorLoad(e, code.language, code.code)}>{code.name} {code.language}</li>)}
+                <ul onBlur={() => toggleLoadDropdown()} className="editor-save-dd-menu">
+                    {props.user?.sourceCodes?.map((code) =>
+                        <li key={code.name} onClick={(e) =>
+                            handleEditorLoad(e, code.language, code.code)}>{code.name + " | " + code.language}</li>)}
                 </ul>
             }
         </div>

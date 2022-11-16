@@ -7,8 +7,8 @@ import Login from "./components/Login";
 
 function App() {
 
-    const {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes, chatBotRes} = UseHooks()
-    const {handleLogin, handleLogout, getAllUsers, createUser, updateUser, deleteUser, me, users} = UseUser()
+    const {getCodeTranslation, getCodeCompile, getChatBotAnswer,setTranslationRes, compileRes, translationRes, chatBotRes} = UseHooks()
+    const {handleLogin, handleLogout, getAllUsers, createUser, updateUser, getUser, deleteUser, me, user, users} = UseUser()
 
     return (
         <div>
@@ -18,13 +18,16 @@ function App() {
             {me && <>
                 <Landing
                     me={me}
+                    user={user}
                     users={users}
+                    getUser={getUser}
                     getAllUsers={getAllUsers}
                     createUser={createUser}
                     updateUser={updateUser}
                     deleteUser={deleteUser}
                     handleLogout={handleLogout}
                     getCodeTranslation={getCodeTranslation}
+                    setTranslationRes={setTranslationRes}
                     translationRes={translationRes}
                     getCodeCompile={getCodeCompile}
                     compileRes={compileRes}

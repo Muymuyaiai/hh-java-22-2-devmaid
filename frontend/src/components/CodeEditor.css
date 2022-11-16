@@ -39,13 +39,13 @@
 
 .editor-dd-button:hover {
     background-color: #5f6265;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .editor-save-dd-menu {
     position: absolute;
     display: block;
-    left: 58vw;
+    right: 29vw;
     top: 70px;
     padding: 0;
     margin: 5px;
@@ -70,6 +70,7 @@
 
 .editor-save-dd-menu li:hover {
     background-color: #333333;
+    border-radius: 5px;
 }
 
 .editor-save-dd-menu li a {

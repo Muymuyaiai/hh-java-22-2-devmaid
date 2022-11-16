@@ -2,6 +2,7 @@ package com.example.backend.security.controller;
 
 import com.example.backend.security.model.AppUser;
 import com.example.backend.security.model.AppUserDTO;
+import com.example.backend.security.model.AppUserResponse;
 import com.example.backend.security.model.UserInfoDTO;
 import com.example.backend.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public AppUser getUserById(@PathVariable String id){
+    public AppUserResponse getUserById(@PathVariable String id){
         return userService.getUserById(id);
     }
 

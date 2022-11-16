@@ -2,12 +2,11 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import User from "../model/User";
 import {UserInfo} from "../model/UserInfo";
-import UserDTO from "../model/UserDTO";
 
 export default function UseUser() {
     const [me, setMe] = useState<UserInfo | undefined>()
     const [users, setUsers] = useState<User[]>([])
-    const [user, setUser] = useState<User>()
+    const [user, setUser] = useState<User>({username: "", roles: []})
 
     useEffect(() => {
         const me = window.localStorage.getItem('ME')
@@ -30,31 +29,45 @@ export default function UseUser() {
                 setMe(undefined)
                 window.localStorage.setItem('ME', JSON.stringify(undefined))
             })
+            .catch((error) => console.error(error))
     }
 
     function getAllUsers() {
         axios.get("api/user/all")
             .then(response => response.data)
             .then(setUsers)
+            .catch((error) => console.error(error))
     }
 
-    function getUserById(username: string) {
+    function getUser(username: string) {
         axios.get("api/user/" + username)
             .then(response => response.data)
             .then(setUser)
+            .catch((error) => console.error(error))
     }
 
     function createUser(username: string, password: string) {
         axios.post("api/user/create", {username: username, password: password})
+            .then(getAllUsers)
+            .catch((error) => console.error(error))
     }
 
-    function updateUser(updatedUser: UserDTO) {
+    function updateUser(updatedUser: User) {
         axios.post("api/user/update/", updatedUser)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch((error) => console.error(error))
     }
 
     function deleteUser(username: String) {
         axios.delete("api/user/" + username)
+            .then(response => {
+                console.log(response.data)
+            })
+            .then(getAllUsers)
+            .catch((error) => console.error(error))
     }
 
-    return {handleLogin, handleLogout, getAllUsers, createUser, updateUser, deleteUser, getUserById, me, users, user}
+    return {handleLogin, handleLogout, getAllUsers, createUser, updateUser, deleteUser, getUser, me, users, user}
 }

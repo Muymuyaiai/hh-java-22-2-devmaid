@@ -61,3 +61,32 @@
 .users-role {
     width: 47%
 }
+
+.transl-top{
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0 5px 0;
+}
+
+.transl-name {
+    width: 100%
+}
+
+.transl-from-to {
+    width: 50%
+}
+
+.code-top{
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0 5px 0;
+}
+
+.code-name {
+    width: 100%
+}
+
+.code-lang {
+
+    width: 50%
+}

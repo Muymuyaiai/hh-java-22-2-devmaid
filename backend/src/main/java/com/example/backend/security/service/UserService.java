@@ -2,6 +2,7 @@ package com.example.backend.security.service;
 
 import com.example.backend.security.model.AppUser;
 import com.example.backend.security.model.AppUserDTO;
+import com.example.backend.security.model.AppUserResponse;
 import com.example.backend.security.model.UserInfoDTO;
 import com.example.backend.security.repository.AppUserRepository;
 import com.example.backend.security.service.exception.UpdateUserException;
@@ -43,8 +44,14 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public AppUser getUserById(String id) {
-        return userRepo.findById(id).orElseThrow(() -> new UserDoesNotExistsException("No user found with name: " + id));
+    public AppUserResponse getUserById(String id) {
+        AppUser user = userRepo.findById(id).orElseThrow(() ->
+                new UserDoesNotExistsException("No user found with name: " + id));
+        return AppUserResponse.builder()
+                .username(user.getUsername())
+                .sourceCodes(user.getSourceCodes())
+                .translations(user.getTranslations())
+                .build();
     }
 
     public String createUser(AppUserDTO appUserDto) {
@@ -66,7 +73,8 @@ public class UserService {
 
     public String updateUser(AppUserDTO appUserDto) {
 
-            AppUser appUser = getUserById(appUserDto.getUsername());
+            AppUser appUser = userRepo.findById(appUserDto.getUsername()).orElseThrow(() ->
+                    new UserDoesNotExistsException("No user found with name: " + appUserDto.getUsername()));
 
             if (appUserDto.getPassword() != null) {
                 appUser.setPasswordHash(passwordEncoder.encode(appUserDto.getPassword()));

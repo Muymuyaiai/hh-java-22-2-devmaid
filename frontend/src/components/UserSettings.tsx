@@ -1,19 +1,23 @@
 import './UserSettings.css';
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import User from "../model/User";
 import UserCard from "./UserCard";
 import {UserInfo} from "../model/UserInfo";
 import UserDTO from "../model/UserDTO";
+import TranslationCard from './TranslationCard';
+import SourceCodeCard from "./SourceCodeCard";
 
 
 type UserProfileProps = {
     setSettings: Dispatch<SetStateAction<boolean>>
     users: User[]
+    user: User
+    getUser: (username: string) => void
     getAllUsers: () => void
     createUser: (username: string, password: string) => void
-    updateUser: (updatedUser: UserDTO) => void
+    updateUser: (updatedUser: User) => void
     deleteUser: (username: String) => void
     me: UserInfo
 }
@@ -24,10 +28,6 @@ export default function UserSettings(props: UserProfileProps) {
     const [password, setPassword] = useState("")
     const [passwordCheck, setPasswordCheck] = useState("")
 
-    useEffect(() => {
-        props.getAllUsers()
-    }, [props.deleteUser, props.deleteUser])
-
     const closeProfile = () => {
         props.setSettings(false)
     }
@@ -35,6 +35,7 @@ export default function UserSettings(props: UserProfileProps) {
     const showContent = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
         setVisible(event.currentTarget.id)
         event.currentTarget.id === "users" && props.getAllUsers()
+        event.currentTarget.id === ("editor" || "translator") && props.getUser(props.me.username)
     }
 
     const handleCreateUser = () => {
@@ -45,8 +46,11 @@ export default function UserSettings(props: UserProfileProps) {
         setPassword("")
     }
 
-    const handleChangePassword = () => {
+    const handleDeleteUser = (username: string) => {
+        props.deleteUser(username)
+    }
 
+    const handleChangePassword = () => {
         if (password === passwordCheck) {
             const newUser: UserDTO = {username: props.me.username, password: password}
             props.updateUser(newUser)
@@ -55,12 +59,25 @@ export default function UserSettings(props: UserProfileProps) {
         }
         setPassword("")
         setPasswordCheck("")
-
     }
 
     const mapUsers = (users: User[]) => {
-        return users.filter((user) => user.roles[0] === "USER")
-            .map((user) => <div key={user.username}><UserCard user={user} deleteUser={props.deleteUser}/></div>)
+        return users.filter((user) => user.roles?.includes("USER") )
+            .map((user) =>
+                <div key={user.username}><UserCard user={user} deleteUser={handleDeleteUser}/>
+                </div>)
+    }
+
+    const mapTranslations = () => {
+        return props.user.translations?.map((transl) =>
+            <div key={transl.name}><TranslationCard translation={transl}/>
+            </div>)
+    }
+
+    const mapCodes = () => {
+        return props.user.sourceCodes?.map((code) =>
+            <div key={code.name}><SourceCodeCard code={code}/>
+            </div>)
     }
 
     return (
@@ -68,7 +85,6 @@ export default function UserSettings(props: UserProfileProps) {
             <div className="top">
                 <p className="title">Settings</p>
                 <div className="close">
-
                     <FontAwesomeIcon onClick={closeProfile} icon={faXmark} size={"1x"}/>
                 </div>
             </div>
@@ -76,49 +92,66 @@ export default function UserSettings(props: UserProfileProps) {
                 <div className="settings-bar">
                     <ul>
                         <li onClick={showContent} id={"profile"}>Profile</li>
-                        {props.me.roles[0] === "ADMIN" &&
+                        {props.me.roles.includes("ADMIN") &&
                             <li onClick={showContent} id={"users"}>Users</li>
                         }
                         <li onClick={showContent} id={"editor"}>Editor</li>
                         <li onClick={showContent} id={"translator"}>Translator</li>
-
                     </ul>
                 </div>
                 <div className="settings-content">
                     {visible === "profile" &&
                         <div>
                             <h2>
-                            {props.me.username}
+                                {props.me.username}
                             </h2>
                             <p>Change password</p>
                             <input type="password" value={password}
                                    onChange={event => setPassword(event.target.value)} placeholder="New password"/>
                             <input type="password" value={passwordCheck}
-                                   onChange={event => setPasswordCheck(event.target.value)} placeholder="Re-enter password"/>
+                                   onChange={event => setPasswordCheck(event.target.value)}
+                                   placeholder="Re-enter password"/>
                             <button onKeyDown={handleChangePassword}>Submit</button>
                         </div>
-
                     }
                     {visible === "users" &&
                         <div>
                             <div>
-                            <input value={username} onChange={event => setUsername(event.target.value)} placeholder="Username"/>
-                            <input type="password" value={password}
-                                   onChange={event => setPassword(event.target.value)} placeholder="Password"/>
-                            <button onClick={handleCreateUser}>Add User</button>
+                                <input value={username} onChange={event =>
+                                    setUsername(event.target.value)} placeholder="Username"
+                                />
+                                <input type="password" value={password} onChange={event =>
+                                    setPassword(event.target.value)} placeholder="Password"
+                                />
+                                <button onClick={handleCreateUser}>Add User</button>
                             </div>
                             <div className="users-top">
-                            <div className="users-name">Username</div>
-                            <div className="users-role">Role</div>
+                                <div className="users-name">Username</div>
+                                <div className="users-role">Role</div>
                             </div>
                             {mapUsers(props.users)}
                         </div>
                     }
                     {visible === "editor" &&
-                        <textarea></textarea>
+                        <div>
+                            <h2>Editor Codes</h2>
+                            <div className="code-top">
+                                <div className="code-name">Name</div>
+                                <div className="code-lang">Language</div>
+                            </div>
+                            {mapCodes()}
+                        </div>
                     }
                     {visible === "translator" &&
-                        <textarea></textarea>
+                        <div>
+                            <h2>Translations</h2>
+                            <div className="transl-top">
+                                <div className="transl-name">Name</div>
+                                <div className="transl-from-to">from</div>
+                                <div className="transl-from-to">to</div>
+                            </div>
+                            {mapTranslations()}
+                        </div>
                     }
                 </div>
             </div>
