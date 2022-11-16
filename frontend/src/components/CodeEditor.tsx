@@ -1,16 +1,21 @@
 import './CodeEditor.css';
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import Editor from "@monaco-editor/react";
 import {languageOptions} from "./LanguageOptions";
 import CompileReq from "../model/CompileReq";
 import LanguageOption from '../model/LanguageOption';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlay, faFileArrowUp, faFileArrowDown } from '@fortawesome/free-solid-svg-icons'
-
+import {FaPlay, FaFolderOpen, FaSave} from 'react-icons/fa';
+import {UserInfo} from "../model/UserInfo";
+import User from "../model/User";
+import SourceCode from "../model/SourceCode";
 
 type CodeEditorProps = {
+    me: UserInfo
+    user: User
     compileRes: string
+    getUser: (username: string) => void
     getCodeCompile: (request: CompileReq) => void
+    updateUser: (updatedUser: User) => void
 }
 
 const MONACO_OPTIONS = {
@@ -23,6 +28,9 @@ const MONACO_OPTIONS = {
 export default function CodeEditor(props: CodeEditorProps) {
     const [code, setCode] = useState('{\nlet message: string = \'Hello, World!\';\nconsole.log(message);\n}')
     const [language, setLanguage] = useState<LanguageOption>(languageOptions[0])
+    const [editorSaveDropdown, setEditorSaveDropdown] = useState(false)
+    const [editorLoadDropdown, setEditorLoadDropdown] = useState(false)
+    const [saveName, setSaveName] = useState("")
 
     const handleChange = (newCode: string | undefined) => {
         console.log('onChange', newCode);
@@ -32,11 +40,49 @@ export default function CodeEditor(props: CodeEditorProps) {
     const handleSelectLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newLang = languageOptions.find((value: LanguageOption) => value.value === event.target.value)
         newLang && setLanguage(newLang)
-        console.log('language:', newLang);
+        console.log(newLang)
     }
-    const handleSubmit = () => {
 
+    const handleSubmit = () => {
         props.getCodeCompile({language_id: language.id, source_code: code, stdin: ""})
+    }
+
+    const toggleSaveDropdown = () => {
+        setEditorSaveDropdown(!editorSaveDropdown)
+        props.getUser(props.me.username)
+    }
+
+    const toggleLoadDropdown = () => {
+        setEditorLoadDropdown(!editorLoadDropdown)
+        props.getUser(props.me.username)
+    }
+
+    const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+        setSaveName(event.target.value)
+    }
+
+    const handleEditorSave = (event: any) => {
+        if (event.key === 'Enter') {
+            if (!saveName) {
+                alert("Please enter a name to save!")
+            } else if (props.user?.sourceCodes?.find((code) => code.name === saveName)) {
+                alert("Name already exists!")
+            }else {
+                const newSourceCodes: SourceCode[] | undefined = props.user.sourceCodes?.concat([{name: saveName, language: language.name, code: code}])
+                const updatedUser: User = {
+                    username: props.me.username,
+                    sourceCodes: newSourceCodes
+                }
+                props.updateUser(updatedUser)
+            }
+            toggleSaveDropdown()
+            setSaveName("")
+        }
+    }
+
+    const handleEditorLoad = (event: React.MouseEvent<HTMLLIElement>,language: string, code: string) => {
+        setCode(code)
+        toggleLoadDropdown()
     }
 
     return (
@@ -50,31 +96,46 @@ export default function CodeEditor(props: CodeEditorProps) {
                     ))}
                 </select>
                 <div className={"actions"}>
-                    <div className={"compile"}>
-                        <FontAwesomeIcon onClick={handleSubmit} icon={faPlay} size={"1x"}/>
+                    <div className={"run"}>
+                        <FaPlay onClick={handleSubmit}/>
                     </div>
-                    <div className={"bracket"}> | </div>
-                    <div className={"save"}>
-                        <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowUp} size={"1x"}/>
+                    <div className="bracket">|</div>
+                    <div className="editor-dd-button">
+                        <FaSave onClick={toggleSaveDropdown}/>
                     </div>
-                    <div className={"save"}>
-                        <FontAwesomeIcon onClick={handleSubmit} icon={faFileArrowDown} size={"1x"}/>
+                    <div className={"editor-dd-button"}>
+                        <FaFolderOpen onClick={toggleLoadDropdown}/>
                     </div>
                 </div>
             </div>
-            <Editor
-                width="100%"
-                height="64vh"
-                options={MONACO_OPTIONS}
-                language={language.value}
-                theme="vs-dark"
-                value={code}
-                onChange={handleChange}
-            />
-
             <div>
-                <textarea readOnly value={props.compileRes}/>
+                <Editor
+                    width="100%"
+                    height="64vh"
+                    options={MONACO_OPTIONS}
+                    language={language.value}
+                    theme="vs-dark"
+                    value={code}
+                    onChange={handleChange}
+                />
+                <div>
+                    <textarea readOnly value={props.compileRes}/>
+                </div>
             </div>
+            {editorSaveDropdown &&
+                <ul  className="editor-save-dd-menu">
+                    <li>
+                        <input value={saveName} autoFocus onBlur={() => toggleSaveDropdown()} onInput={handleChangeName} onKeyDown={handleEditorSave}/>
+                    </li>
+                </ul>
+            }
+            {editorLoadDropdown &&
+                <ul className="editor-save-dd-menu">
+                    {props.user?.sourceCodes?.map((code) =>
+                        <li key={code.name} onClick={(e) =>
+                            handleEditorLoad(e, code.language, code.code)}>{code.name + " | " + code.language}</li>)}
+                </ul>
+            }
         </div>
     );
 }

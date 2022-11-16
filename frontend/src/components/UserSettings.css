@@ -1,0 +1,92 @@
+.user-settings-container {
+    position: absolute;
+    display: block;
+    align-self: center;
+    height: 600px;
+    width: 800px;
+    margin-top: 100px;
+    background-color: #3d3f41;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+}
+
+.user-settings-container input {
+    background-color: #2c2c2c;
+    border: none;
+    color: #a9abad;
+    outline: 1px solid #333333;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: bold;
+    padding: 0 0 0 20px;
+}
+
+.close {
+    padding: 5px 10px 0 0;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: row;
+    height: 85%;
+    width: 95%;
+}
+
+.settings-bar {
+    width: 13em;
+}
+
+.settings-content {
+    width: 100%;
+    display: flex;
+}
+
+.users-top{
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0 5px 0;
+}
+
+.users-name {
+    width: 47%
+}
+
+.users-role {
+    width: 47%
+}
+
+.transl-top{
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0 5px 0;
+}
+
+.transl-name {
+    width: 100%
+}
+
+.transl-from-to {
+    width: 50%
+}
+
+.code-top{
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0 5px 0;
+}
+
+.code-name {
+    width: 100%
+}
+
+.code-lang {
+
+    width: 50%
+}

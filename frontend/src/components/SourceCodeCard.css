@@ -1,0 +1,20 @@
+.code-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #2c2c2c;
+    outline: 1px solid #333333;
+    width: 500px;
+}
+
+.code-name {
+    width: 50%
+}
+
+.code-lang {
+    box-sizing: border-box;
+    width: 100%
+}
+
+.code-delete {
+    color: #974949;
+}

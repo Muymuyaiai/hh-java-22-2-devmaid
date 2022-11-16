@@ -1,18 +1,18 @@
 import './Navbar.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {Dispatch, SetStateAction} from "react";
+import { FaTerminal } from 'react-icons/fa';
+import {UserInfo} from "../model/UserInfo";
 
 
 type NavbarProps = {
-    me: string
+    me: UserInfo
     handleLogout: () => void
     setProfile: Dispatch<SetStateAction<boolean>>
 }
 
 export function Navbar (props: NavbarProps) {
 
-    const showProfile = () => {
+    const showSettings = () => {
         props.setProfile(true)
     }
 
@@ -22,14 +22,16 @@ export function Navbar (props: NavbarProps) {
                 <h3>dev_MAID</h3>
             </div>
             <div className="dropdown">
-                <FontAwesomeIcon className="dd-button" icon={faUser} size="2x"/>
-                <input type="checkbox" className="dd-input" id="test"/>
+                <div className="profile-icon">
+                <FaTerminal className="dd-button"/>
+                </div>
+                <input type="checkbox" className="dd-input"/>
                 <ul className="dd-menu">
                     <div className="signed-in">
                         <div>Signed in as</div>
-                        <div className="user">{props.me}</div>
+                        <div className="user">{props.me.username}</div>
                     </div>
-                    <li onClick={showProfile}>Settings</li>
+                    <li onClick={showSettings}>Settings</li>
                     <li onClick={props.handleLogout}>Sign Out</li>
                 </ul>
             </div>

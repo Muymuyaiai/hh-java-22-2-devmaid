@@ -1,8 +1,7 @@
 import './ChatBot.css';
 import React, {ChangeEvent, useState} from "react";
 import ChatBotReq from "../model/ChatBotReq";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import { FaPaperPlane } from 'react-icons/fa';
 
 
 type ChatBotProps = {
@@ -13,9 +12,7 @@ export default function ChatBot(props: ChatBotProps) {
     const [chatLog, setChatLog] = useState("")
     const [chatBotReq, setChatBotReq] = useState<ChatBotReq>({prompt: ""})
 
-
     const handleSubmit = () => {
-
         props.getChatBotAnswer(chatBotReq)
         setChatLog(chatLog + props.chatBotRes)
         setChatLog(chatLog + props.chatBotRes + "\nYou: " + chatBotReq.prompt + "\nMarv: ")
@@ -35,11 +32,12 @@ export default function ChatBot(props: ChatBotProps) {
                 <input
                     type={"text"}
                     value={chatBotReq.prompt}
+                    onKeyDown={(e) => {e.key === 'Enter' && handleSubmit()}}
                     onInput={handleChatInput}
                 />
                 </div>
                 <div className={"send"}>
-                    <FontAwesomeIcon onClick={handleSubmit} icon={faPaperPlane}/>
+                    <FaPaperPlane onClick={handleSubmit}/>
                 </div>
             </div>
         </div>

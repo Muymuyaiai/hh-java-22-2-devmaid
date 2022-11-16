@@ -50,5 +50,5 @@ export default function UseHooks() {
 
 
 
-    return {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes, chatBotRes}
+    return {getCodeTranslation, getCodeCompile, getChatBotAnswer, setTranslationRes, compileRes, translationRes, chatBotRes}
 }

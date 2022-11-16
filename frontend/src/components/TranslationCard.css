@@ -1,0 +1,25 @@
+.transl-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #2c2c2c;
+    outline: 1px solid #333333;
+    width: 500px;
+}
+
+.transl-name {
+    width: 100%
+}
+
+.transl-srclang {
+    box-sizing: border-box;
+    width: 50%
+}
+
+.transl-tarlang {
+    box-sizing: border-box;
+    width: 50%
+}
+
+.transl-delete {
+    color: #974949;
+}

@@ -1,13 +1,14 @@
 import './App.css';
 import UseHooks from "./hooks/UseHooks";
 import Landing from "./components/Landing";
-import UseLogin from "./hooks/UseLogin";
+import UseUser from "./hooks/UseUser";
 import Login from "./components/Login";
+
 
 function App() {
 
-    const {getCodeTranslation, getCodeCompile, getChatBotAnswer, compileRes, translationRes, chatBotRes} = UseHooks()
-    const {handleLogin, handleLogout, me} = UseLogin()
+    const {getCodeTranslation, getCodeCompile, getChatBotAnswer,setTranslationRes, compileRes, translationRes, chatBotRes} = UseHooks()
+    const {handleLogin, handleLogout, getAllUsers, createUser, updateUser, getUser, deleteUser, me, user, users} = UseUser()
 
     return (
         <div>
@@ -17,14 +18,21 @@ function App() {
             {me && <>
                 <Landing
                     me={me}
+                    user={user}
+                    users={users}
+                    getUser={getUser}
+                    getAllUsers={getAllUsers}
+                    createUser={createUser}
+                    updateUser={updateUser}
+                    deleteUser={deleteUser}
                     handleLogout={handleLogout}
                     getCodeTranslation={getCodeTranslation}
+                    setTranslationRes={setTranslationRes}
                     translationRes={translationRes}
                     getCodeCompile={getCodeCompile}
                     compileRes={compileRes}
                     getChatBotAnswer={getChatBotAnswer}
                     chatBotRes={chatBotRes}
-
                 />
             </>
             }
