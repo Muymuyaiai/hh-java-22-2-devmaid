@@ -26,6 +26,7 @@ const MONACO_OPTIONS = {
 }
 
 export default function CodeEditor(props: CodeEditorProps) {
+
     const [code, setCode] = useState('{\nlet message: string = \'Hello, World!\';\nconsole.log(message);\n}')
     const [language, setLanguage] = useState<LanguageOption>(languageOptions[0])
     const [editorSaveDropdown, setEditorSaveDropdown] = useState(false)
@@ -68,7 +69,12 @@ export default function CodeEditor(props: CodeEditorProps) {
             } else if (props.user?.sourceCodes?.find((code) => code.name === saveName)) {
                 alert("Name already exists!")
             }else {
-                const newSourceCodes: SourceCode[] | undefined = props.user.sourceCodes?.concat([{name: saveName, language: language.name, code: code}])
+                const newSourceCodes: SourceCode[] | undefined =
+                    props.user.sourceCodes?.concat([{
+                        name: saveName,
+                        language: language.name,
+                        code: code
+                    }])
                 const updatedUser: User = {
                     username: props.me.username,
                     sourceCodes: newSourceCodes
@@ -125,7 +131,10 @@ export default function CodeEditor(props: CodeEditorProps) {
             {editorSaveDropdown &&
                 <ul  className="editor-save-dd-menu">
                     <li>
-                        <input value={saveName} autoFocus onBlur={() => toggleSaveDropdown()} onInput={handleChangeName} onKeyDown={handleEditorSave}/>
+                        <input value={saveName} autoFocus
+                               onBlur={() => toggleSaveDropdown()}
+                               onInput={handleChangeName}
+                               onKeyDown={handleEditorSave}/>
                     </li>
                 </ul>
             }
@@ -133,7 +142,8 @@ export default function CodeEditor(props: CodeEditorProps) {
                 <ul className="editor-save-dd-menu">
                     {props.user?.sourceCodes?.map((code) =>
                         <li key={code.name} onClick={(e) =>
-                            handleEditorLoad(e, code.language, code.code)}>{code.name + " | " + code.language}</li>)}
+                            handleEditorLoad(e, code.language, code.code)}>{code.name + " | " + code.language}
+                        </li>)}
                 </ul>
             }
         </div>

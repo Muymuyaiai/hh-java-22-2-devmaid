@@ -25,6 +25,7 @@ type UserProfileProps = {
 }
 
 export default function UserSettings(props: UserProfileProps) {
+
     const [visible, setVisible] = useState("profile")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -66,19 +67,24 @@ export default function UserSettings(props: UserProfileProps) {
     const mapUsers = (users: User[]) => {
         return users.filter((user) => user.roles?.includes("USER") )
             .map((user) =>
-                <div key={user.username}><UserCard user={user} deleteUser={handleDeleteUser}/>
+                <div
+                    key={user.username}><UserCard
+                    user={user}
+                    deleteUser={handleDeleteUser}/>
                 </div>)
     }
 
     const mapTranslations = () => {
         return props.user.translations?.map((transl) =>
-            <div key={transl.name}><TranslationCard translation={transl} deleteTranslation={deleteTranslation}/>
+            <div key={transl.name}>
+                <TranslationCard translation={transl} deleteTranslation={deleteTranslation}/>
             </div>)
     }
 
     const mapCodes = () => {
         return props.user.sourceCodes?.map((code) =>
-            <div key={code.name}><SourceCodeCard code={code} deleteSourceCode={deleteSourceCode}/>
+            <div key={code.name}>
+                <SourceCodeCard code={code} deleteSourceCode={deleteSourceCode}/>
             </div>)
     }
 

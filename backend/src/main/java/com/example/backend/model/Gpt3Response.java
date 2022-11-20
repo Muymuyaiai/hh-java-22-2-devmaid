@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Gpt3Response {
+
     private String id;
     private String object;
     private String model;

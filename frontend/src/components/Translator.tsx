@@ -18,6 +18,7 @@ type TranslationProps = {
 }
 
 export default function Translator(props: TranslationProps) {
+
     const [translSaveDropdown, setTranslSaveDropdown] = useState(false)
     const [translLoadDropdown, setTranslLoadDropdown] = useState(false)
     const [saveName, setSaveName] = useState("")
@@ -70,7 +71,13 @@ export default function Translator(props: TranslationProps) {
             } else if (props.user?.translations?.find((transl) => transl.name === saveName)) {
                 alert("Name already exists!")
             }else {
-                const newTranslations: Translation[] | undefined = props.user?.translations?.concat([{name: saveName, srcLang: translationReq.srcLang, tarLang: translationReq.tarLang, srcText: translationReq.text, resText:props.translationRes}])
+                const newTranslations: Translation[] | undefined = props.user?.translations?.concat([{
+                    name: saveName,
+                    srcLang: translationReq.srcLang,
+                    tarLang: translationReq.tarLang,
+                    srcText: translationReq.text,
+                    resText:props.translationRes
+                }])
                 let updatedUser: User = {
                     username: props.me.username,
                     translations: newTranslations
@@ -83,7 +90,9 @@ export default function Translator(props: TranslationProps) {
         }
     }
 
-    const handleTranslLoad = (event: React.MouseEvent<HTMLLIElement>,srcLang: string, tarLang: string, srcText: string, resText: string) => {
+    const handleTranslLoad = (
+        event: React.MouseEvent<HTMLLIElement>, srcLang: string, tarLang: string, srcText: string, resText: string
+    ) => {
         translationReq.srcLang = srcLang
         translationReq.tarLang = tarLang
         translationReq.text = srcText
@@ -116,7 +125,11 @@ export default function Translator(props: TranslationProps) {
             {translSaveDropdown &&
                 <ul  className="transl-save-dd-menu">
                     <li>
-                        <input value={saveName} autoFocus onBlur={() => toggleSaveDropdown()} onInput={handleChangeName} onKeyDown={handleTranslSave}/>
+                        <input value={saveName} autoFocus onBlur={
+                            () => toggleSaveDropdown()}
+                               onInput={handleChangeName}
+                               onKeyDown={handleTranslSave
+                        }/>
                     </li>
                 </ul>
             }

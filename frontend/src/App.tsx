@@ -1,5 +1,5 @@
 import './App.css';
-import UseHooks from "./hooks/UseHooks";
+import UseFeatures from "./hooks/UseFeatures";
 import Landing from "./components/Landing";
 import UseUser from "./hooks/UseUser";
 import Login from "./components/Login";
@@ -7,7 +7,7 @@ import Login from "./components/Login";
 
 function App() {
 
-    const {getCodeTranslation, getCodeCompile, getChatBotAnswer,setTranslationRes, compileRes, translationRes, chatBotRes} = UseHooks()
+    const {getCodeTranslation, getCodeCompile, getChatBotAnswer,setTranslationRes, compileRes, translationRes, chatBotRes} = UseFeatures()
     const {handleLogin, handleLogout, getAllUsers, createUser, updateUser, getUser, deleteUser, me, user, users} = UseUser()
 
     return (

@@ -21,8 +21,12 @@ export default function Login(props: LoginProps) {
 
         <div className={"login-container"}>
             <div className={"login"}>
-                <input onKeyDown={(e) => {e.key === 'Enter' && handleLogin()}} value={username} onChange={event => setUsername(event.target.value)}/>
-                <input onKeyDown={(e) => {e.key === 'Enter' && handleLogin()}} type="password" value={password} onChange={event => setPassword(event.target.value)}/>
+                <input onKeyDown={(e) => {
+                    e.key === 'Enter' && handleLogin()
+                }} value={username} onChange={event => setUsername(event.target.value)}/>
+                <input onKeyDown={(e) => {
+                    e.key === 'Enter' && handleLogin()
+                }} type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                 <button onClick={handleLogin}>Login</button>
             </div>
         </div>

@@ -92,8 +92,7 @@ class UserControllerTest {
         userRepo.save(AppUser.builder().username("2").build());
 
         String expectedJSON = """
-                [{"username": "1"}, {"username": "2"}
-                ]
+                [{"username": "1"}, {"username": "2"}]
                 """;
 
         //WHEN + THEN
@@ -211,6 +210,5 @@ class UserControllerTest {
         mockMvc.perform(delete("/api/user/delete/Test"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Test successfully deleted!"));
-
     }
 }

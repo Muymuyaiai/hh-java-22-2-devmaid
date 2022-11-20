@@ -64,6 +64,7 @@ public class Gpt3Service {
         Gpt3Response newGpt3Return = getGpt3Return(newGpt3Request);
 
         assert newGpt3Return != null;
+
         return newGpt3Return.getChoices()[0].getText();
     }
 
@@ -85,6 +86,7 @@ public class Gpt3Service {
                         .getBody();
 
         assert newDalleReturn != null;
+
         return newDalleReturn.getData();
     }
 }

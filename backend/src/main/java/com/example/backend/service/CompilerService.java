@@ -45,6 +45,6 @@ public class CompilerService {
         if (newCompileResult.getStdout() != null){
             return newCompileResult.getStdout();
         }
-        return newCompileResult.getCompile_output();
+        return newCompileResult.getCompileOutput();
     }
 }

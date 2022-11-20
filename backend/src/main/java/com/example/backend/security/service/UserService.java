@@ -84,10 +84,12 @@ public class UserService {
             if (appUserDto.getSourceCodes() != null) {
                 appUser.setSourceCodes(appUserDto.getSourceCodes());
             }
+
             return userRepo.save(appUser).getUsername() + " successfully updated!";
     }
 
     public String deleteUserById(String id) {
+
         try {
             userRepo.deleteById(id);
             return id + " successfully deleted!";

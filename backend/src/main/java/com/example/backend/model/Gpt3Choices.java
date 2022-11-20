@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Gpt3Choices {
+
     private String text;
     private int index;
     private String logprobs;

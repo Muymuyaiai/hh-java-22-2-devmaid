@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DalleResponse {
+
     private String created;
     private DalleData[] data;
 }

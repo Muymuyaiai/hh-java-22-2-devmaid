@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Gpt3Request {
+
     private String model;
     private String prompt;
     private float temperature;

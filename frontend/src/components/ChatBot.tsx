@@ -9,6 +9,7 @@ type ChatBotProps = {
     chatBotRes: string
 }
 export default function ChatBot(props: ChatBotProps) {
+
     const [chatLog, setChatLog] = useState("")
     const [chatBotReq, setChatBotReq] = useState<ChatBotReq>({prompt: ""})
 
