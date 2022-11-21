@@ -1,15 +1,14 @@
 import './UserSettings.css';
 import React, {Dispatch, SetStateAction, useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
-import User from "../model/User";
+import { ImCross } from 'react-icons/im';
+import User from "../../model/User";
 import UserCard from "./UserCard";
-import {UserInfo} from "../model/UserInfo";
-import UserDTO from "../model/UserDTO";
+import {UserInfo} from "../../model/UserInfo";
+import UserDTO from "../../model/UserDTO";
 import TranslationCard from './TranslationCard';
 import SourceCodeCard from "./SourceCodeCard";
-import Translation from "../model/Translation";
-import SourceCode from "../model/SourceCode";
+import Translation from "../../model/Translation";
+import SourceCode from "../../model/SourceCode";
 
 
 type UserProfileProps = {
@@ -111,7 +110,7 @@ export default function UserSettings(props: UserProfileProps) {
             <div className="top">
                 <p className="title">Settings</p>
                 <div className="close">
-                    <FontAwesomeIcon onClick={closeProfile} icon={faXmark} size={"1x"}/>
+                    <ImCross onClick={closeProfile}/>
                 </div>
             </div>
             <div className="settings-container">

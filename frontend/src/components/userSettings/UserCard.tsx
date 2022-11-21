@@ -1,6 +1,6 @@
 import './UserCard.css';
-import User from "../model/User";
 import { ImCross } from 'react-icons/im';
+import User from "../../model/User";
 
 type UserCardProps = {
     user: User

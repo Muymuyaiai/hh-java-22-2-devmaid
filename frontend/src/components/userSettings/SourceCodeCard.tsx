@@ -1,5 +1,5 @@
 import './SourceCodeCard.css';
-import SourceCode from "../model/SourceCode";
+import SourceCode from "../../model/SourceCode";
 import { ImCross } from 'react-icons/im';
 
 type SourceCodeCardProps = {

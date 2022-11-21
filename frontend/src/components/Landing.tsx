@@ -6,10 +6,10 @@ import CompileReq from "../model/CompileReq";
 import CodeEditor from "./CodeEditor";
 import {Navbar} from "./Navbar";
 import ChatBotReq from "../model/ChatBotReq";
-import UserSettings from "./UserSettings";
 import React, {useState} from "react";
 import User from "../model/User";
 import {UserInfo} from "../model/UserInfo";
+import UserSettings from './userSettings/UserSettings';
 
 type LandingProps = {
     me: UserInfo
