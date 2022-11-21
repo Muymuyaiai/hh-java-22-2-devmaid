@@ -1,4 +1,4 @@
-package com.example.backend.service;
+package com.example.backend.security.service;
 
 import com.example.backend.security.model.AppUser;
 import com.example.backend.security.repository.AppUserRepository;
@@ -23,20 +23,26 @@ public class AppUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         AppUser user = appUserRepository.findById(username)
                 .orElse(null);
+
         if (user == null) {
             return null;
         }
+
         return new User(user.getUsername(), user.getPasswordHash(), extractSimpleGrantedAuthorities(user));
     }
 
     private List<SimpleGrantedAuthority> extractSimpleGrantedAuthorities(AppUser user) {
+
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
         for (String s : user.getRoles()) {
             SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(s);
             authorities.add(simpleGrantedAuthority);
         }
+
         return authorities;
     }
 }

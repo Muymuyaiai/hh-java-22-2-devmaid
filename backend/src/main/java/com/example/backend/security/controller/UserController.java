@@ -1,9 +1,8 @@
 package com.example.backend.security.controller;
 
 import com.example.backend.security.model.AppUser;
-import com.example.backend.security.model.AppUserDTO;
-import com.example.backend.security.model.AppUserResponse;
-import com.example.backend.security.model.UserInfoDTO;
+import com.example.backend.security.model.AppUserDto;
+import com.example.backend.security.model.UserInfoDto;
 import com.example.backend.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public UserInfoDTO login(){
+    public UserInfoDto login(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userService.getUserInfoDtoByUsername(username);
     }
@@ -40,20 +39,20 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public AppUserResponse getUserById(@PathVariable String id){
+    public AppUser getUserById(@PathVariable String id){
         return userService.getUserById(id);
     }
 
     @PostMapping("/create")
-    public String createUser(@RequestBody AppUserDTO appUserDto){
+    public String createUser(@RequestBody AppUserDto appUserDto){
         return userService.createUser(appUserDto);
     }
 
     @PostMapping("/update")
-    public String updatePassword(@RequestBody AppUserDTO appUserDto) {
+    public String updatePassword(@RequestBody AppUserDto appUserDto) {
         return userService.updateUser(appUserDto);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteUserById(@PathVariable String id) {
         return userService.deleteUserById(id);
     }

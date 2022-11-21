@@ -60,7 +60,7 @@ export default function UseUser() {
     }
 
     function deleteUser(username: String) {
-        axios.delete("api/user/" + username)
+        axios.delete("api/user/delete/" + username)
             .then(response => {
                 console.log(response.data)
             })

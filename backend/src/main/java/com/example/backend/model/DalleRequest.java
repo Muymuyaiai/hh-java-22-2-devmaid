@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DalleRequest {
+
     private String prompt;
     private int n;
     private String size;

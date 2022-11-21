@@ -1,4 +1,5 @@
 type Translation = {
+
     name: string
     srcLang: string
     tarLang: string

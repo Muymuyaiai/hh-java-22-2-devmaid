@@ -1,4 +1,5 @@
 type ChatBotReq = {
+
     prompt: string
 }
 

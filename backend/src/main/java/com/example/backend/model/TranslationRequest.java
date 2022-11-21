@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TranslationRequest {
+
     private String text;
     private String srcLang;
     private String tarLang;

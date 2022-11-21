@@ -1,9 +1,8 @@
 package com.example.backend.security.service;
 
 import com.example.backend.security.model.AppUser;
-import com.example.backend.security.model.AppUserDTO;
-import com.example.backend.security.model.AppUserResponse;
-import com.example.backend.security.model.UserInfoDTO;
+import com.example.backend.security.model.AppUserDto;
+import com.example.backend.security.model.UserInfoDto;
 import com.example.backend.security.repository.AppUserRepository;
 import com.example.backend.security.service.exception.UpdateUserException;
 import com.example.backend.security.service.exception.UserAlreadyExistsException;
@@ -29,12 +28,12 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserInfoDTO getUserInfoDtoByUsername(String username) {
+    public UserInfoDto getUserInfoDtoByUsername(String username) {
 
         AppUser appUser = userRepo.findById(username)
                 .orElseThrow(NoSuchElementException::new);
 
-        return UserInfoDTO.builder()
+        return UserInfoDto.builder()
                 .username(appUser.getUsername())
                 .roles(appUser.getRoles())
                 .build();
@@ -44,17 +43,17 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public AppUserResponse getUserById(String id) {
+    public AppUser getUserById(String id) {
         AppUser user = userRepo.findById(id).orElseThrow(() ->
                 new UserDoesNotExistsException("No user found with name: " + id));
-        return AppUserResponse.builder()
+        return AppUser.builder()
                 .username(user.getUsername())
                 .sourceCodes(user.getSourceCodes())
                 .translations(user.getTranslations())
                 .build();
     }
 
-    public String createUser(AppUserDTO appUserDto) {
+    public String createUser(AppUserDto appUserDto) {
             if (!userRepo.existsById(appUserDto.getUsername())) {
                 userRepo.save(AppUser.builder()
                         .username(appUserDto.getUsername())
@@ -71,7 +70,7 @@ public class UserService {
 
     }
 
-    public String updateUser(AppUserDTO appUserDto) {
+    public String updateUser(AppUserDto appUserDto) {
 
             AppUser appUser = userRepo.findById(appUserDto.getUsername()).orElseThrow(() ->
                     new UserDoesNotExistsException("No user found with name: " + appUserDto.getUsername()));
@@ -85,13 +84,15 @@ public class UserService {
             if (appUserDto.getSourceCodes() != null) {
                 appUser.setSourceCodes(appUserDto.getSourceCodes());
             }
-            return userRepo.save(appUser).getUsername();
+
+            return userRepo.save(appUser).getUsername() + " successfully updated!";
     }
 
     public String deleteUserById(String id) {
+
         try {
             userRepo.deleteById(id);
-            return id + "successfully deleted!";
+            return id + " successfully deleted!";
         } catch (Exception e) {
             throw new UpdateUserException(id + "could not be deleted!");
         }

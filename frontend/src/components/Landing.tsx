@@ -31,8 +31,8 @@ type LandingProps = {
 }
 
 export default function Landing(props: LandingProps) {
-    const [settings, setSettings] = useState(false)
 
+    const [settings, setSettings] = useState(false)
 
     return (
 

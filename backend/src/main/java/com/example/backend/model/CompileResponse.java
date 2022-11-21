@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CompileResponse {
+
     private String stdout;
-    private String compile_output;
+    private String compileOutput;
+
 }

@@ -4,7 +4,7 @@ import {useState} from "react";
 import CompileReq from "../model/CompileReq";
 import ChatBotReq from "../model/ChatBotReq";
 
-export default function UseHooks() {
+export default function UseFeatures() {
     const [translationRes, setTranslationRes] = useState("")
     const [compileRes, setCompileRes] = useState("")
     const [chatBotRes, setChatBotRes] = useState("")
@@ -23,6 +23,7 @@ export default function UseHooks() {
 
     function getCodeTranslation (request: TranslationReq) {
         setTranslationRes("Loading...")
+
         return axios.post("/api/gpt3", request)
             .then((response) => response.data)
             .then(setTranslationRes)
@@ -33,7 +34,7 @@ export default function UseHooks() {
         setCompileRes("Compiling...")
         request.source_code = encode(request.source_code)
         request.stdin = encode(request.stdin)
-        setCompileRes("Compiling...")
+
         axios.post("/api/compiler", request)
             .then((response) => response.data)
             .then((data) =>setCompileRes(decode(data)))
@@ -42,13 +43,12 @@ export default function UseHooks() {
 
     const getChatBotAnswer = (request: ChatBotReq) => {
         setChatBotRes("...")
+
         axios.post("/api/gpt3/marv", request)
             .then((response) => response.data)
             .then(setChatBotRes)
             .catch((error) => console.error(error))
     }
-
-
 
     return {getCodeTranslation, getCodeCompile, getChatBotAnswer, setTranslationRes, compileRes, translationRes, chatBotRes}
 }

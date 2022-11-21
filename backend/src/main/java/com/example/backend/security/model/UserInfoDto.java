@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class UserInfoDTO {
+public class UserInfoDto {
     private String username;
     private List<String> roles;
 }

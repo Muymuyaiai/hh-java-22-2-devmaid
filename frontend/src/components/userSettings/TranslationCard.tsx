@@ -24,7 +24,9 @@ export default function TranslationCard(props: TranslationCardProps) {
                 {props.translation.tarLang}
             </div>
             <div>
-                <ImCross className="transl-delete" onClick={() => props.deleteTranslation(props.translation)}/>
+                <ImCross className="transl-delete"
+                         onClick={() => props.deleteTranslation(props.translation)}
+                />
             </div>
         </div>
     )
