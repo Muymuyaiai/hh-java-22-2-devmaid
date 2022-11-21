@@ -1,5 +1,5 @@
 import './TranslationCard.css';
-import Translation from "../model/Translation";
+import Translation from "../../model/Translation";
 import { ImCross } from 'react-icons/im';
 
 
